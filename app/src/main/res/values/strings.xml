@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Purchases Collection</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="product_edit">Edit Product</string>
+    <string name="product_create">Add New Product</string>
+
+    <string name="empty_product_message">Product cannot be empty</string>
+    <string name="product_not_buy">Do not have a products to buy</string>
+    <string name="product_to_buy">Add a product a click +</string>
+    <string name="delete_product">Delete product</string>
+    <string name="buy_product">Buy product</string>
+    <string name="product_list_drawer">Product List</string>
+    <string name="open_drawer">Open drawer</string>
+    <string name="close_drawer">Close drawer</string>
+</resources>
