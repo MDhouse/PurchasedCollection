@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<purchases.application.purchasescollection.products.SwipeChildRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refresh_layout"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/product_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:focusable="true">
+
+        <LinearLayout
+            android:id="@+id/products"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/products_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/no_products"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/no_products_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/no_product_container_title_margin_bottom"
+                android:text="@string/product_not_buy" />
+
+            <TextView
+                android:id="@+id/no_products_add"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/no_product_container_add_height"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/product_to_buy" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</purchases.application.purchasescollection.products.SwipeChildRefreshLayout>
+
