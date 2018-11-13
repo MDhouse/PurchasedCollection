@@ -67,9 +67,9 @@ class ProductsAdapter extends BaseAdapter {
         titleTV.setText(item.getName());
 
         CheckBox completeCB = rowsView.findViewById(R.id.complete);
-        completeCB.setChecked(item.isBuy());
+        completeCB.setChecked(item.getBuy());
 
-        if (item.isBuy()) {
+        if (item.getBuy()) {
             rowsView.setBackground(
                     parent.getContext().getDrawable(R.drawable.touch_completed_feedback)
             );
@@ -80,7 +80,7 @@ class ProductsAdapter extends BaseAdapter {
         }
 
         completeCB.setOnClickListener(v -> {
-            if (!item.isBuy()) {
+            if (!item.getBuy()) {
                 itemListListener.onCompleteClick(item);
             } else {
                 itemListListener.onUnCompleteClick(item);

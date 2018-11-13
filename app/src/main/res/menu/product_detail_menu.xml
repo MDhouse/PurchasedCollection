@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/product_detail_menu">
     <item
         android:id="@+id/menu_delete"
+        android:icon="@drawable/ic_delete"
         android:title="@string/delete_product"
-        app:showAsAction="always|withText" />
+        app:showAsAction="never|ifRoom" />
     <item
         android:id="@+id/menu_buy"
+        android:icon="@drawable/ic_action_basket"
         android:title="@string/buy_product"
-        app:showAsAction="always|withText"/>
+        app:showAsAction="never|ifRoom" />
 </menu>

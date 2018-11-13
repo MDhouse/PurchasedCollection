@@ -8,13 +8,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import purchases.application.purchasescollection.R;
@@ -22,7 +22,6 @@ import purchases.application.purchasescollection.addEditProduct.AddEditProductAc
 import purchases.application.purchasescollection.addEditProduct.AddEditProductFragment;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static purchases.application.purchasescollection.R.id.menu_delete;
 
 
 public class ProductDetailFragment extends Fragment implements ProductDetailContract.View {
@@ -35,12 +34,17 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
 
     private ProductDetailContract.Presenter presenter;
 
-    private TextView detailTitle;
-    private TextView detailDescription;
+    private LinearLayout detailLoad;
+    private LinearLayout detailNoData;
+    private LinearLayout detailData;
 
+    private TextView productName;
+    private TextView productPrice;
+    private TextView productAmount;
+    private TextView productIsBuy;
 
-    public ProductDetailFragment() {
-    }
+    private boolean statusPurchases;
+    private MenuItem optionBuy;
 
     public static ProductDetailFragment newInstance(String productId) {
         Bundle arguments = new Bundle();
@@ -51,17 +55,9 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        presenter.start();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab_edit_product);
-        fab.setOnClickListener(v -> presenter.editProduct());
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -71,12 +67,35 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         View root = inflater.inflate(R.layout.fragment_product_detail, container, false);
         setHasOptionsMenu(true);
 
-        detailTitle = (TextView) root.findViewById(R.id.product_detail_title);
-        detailDescription = (TextView) root.findViewById(R.id.product_detail_description);
+        detailLoad = root.findViewById(R.id.product_detail_load);
+        detailData = root.findViewById(R.id.product_detail_data);
+        detailNoData = root.findViewById(R.id.product_detail_no_date);
 
-        detailTitle.setText("testing");
+        productName = root.findViewById(R.id.product_detail_name);
+        productPrice = root.findViewById(R.id.product_detail_price);
+        productAmount = root.findViewById(R.id.product_detail_amount);
+        productIsBuy = root.findViewById(R.id.product_detail_status);
 
-        return inflater.inflate(R.layout.fragment_product_detail, container, false);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab_edit_product);
+        fab.setOnClickListener(v -> presenter.editProduct());
+
+        return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.start();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.product_detail_menu, menu);
+
+        this.optionBuy = menu.findItem(R.id.menu_buy);
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -89,13 +108,17 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
             case R.id.menu_buy:
                 presenter.buyProduct();
                 return true;
+            default:
+                return  super.onOptionsItemSelected(item);
         }
-        return false;
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.product_detail_menu, menu);
+    public void onPrepareOptionsMenu(Menu menu) {
+
+        super.onPrepareOptionsMenu(menu);
+
+        this.setBuyOption();
     }
 
     @Override
@@ -107,34 +130,6 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
                 getActivity().finish();
             }
         }
-    }
-
-    @Override
-    public void hideTitle() {
-        detailTitle.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showTitle(@NonNull String title) {
-        detailTitle.setText(title);
-        detailTitle.setVisibility(View.VISIBLE);
-
-    }
-
-    @Override
-    public void hideInformation() {
-        detailDescription.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showInformation(@NonNull String description) {
-        detailDescription.setText(description);
-        detailDescription.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void showBuyProduct() {
-
     }
 
     @Override
@@ -151,9 +146,61 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     }
 
     @Override
+    public void setName(String name) {
+
+        this.productName.setText(name);
+    }
+
+    @Override
+    public void setPrice(double price) {
+
+        this.productPrice.setText("$ " + String.valueOf(price));
+    }
+
+    @Override
+    public void setAmount(int amount) {
+
+        this.productAmount.setText(String.valueOf(amount));
+    }
+
+    @Override
+    public void setBuy(String status) {
+
+        this.productIsBuy.setText(status);
+    }
+
+    @Override
+    public void setOptionBuy(boolean status) {
+
+        this.statusPurchases = !status;
+        this.setBuyOption();
+    }
+
+    @Override
+    public void showDetailProduct() {
+
+        this.detailLoad.setVisibility(View.GONE);
+        this.detailNoData.setVisibility(View.GONE);
+
+        this.detailData.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void showMissingProduct() {
-        detailTitle.setText("");
-        detailDescription.setText("No data");
+
+        this.detailLoad.setVisibility(View.GONE);
+        this.detailData.setVisibility(View.GONE);
+
+        this.detailNoData.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showLoadProduct() {
+
+        this.detailNoData.setVisibility(View.GONE);
+        this.detailData.setVisibility(View.GONE);
+
+        this.detailLoad.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -164,5 +211,14 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     @Override
     public void setPresenter(ProductDetailContract.Presenter presenter) {
         this.presenter = checkNotNull(presenter);
+    }
+
+
+    private void setBuyOption() {
+
+        if(this.optionBuy != null) {
+            this.optionBuy.setEnabled(this.statusPurchases);
+            this.optionBuy.setVisible(this.statusPurchases);
+        }
     }
 }

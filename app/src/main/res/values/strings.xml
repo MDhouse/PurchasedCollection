@@ -15,4 +15,11 @@
     <string name="product_list_drawer">Product List</string>
     <string name="open_drawer">Open drawer</string>
     <string name="close_drawer">Close drawer</string>
+
+    <string name="product_detail_title">Title</string>
+    <string name="product_detail_description">Description</string>
+    <string name="product_detail_empty">Product is empty or no data.</string>
+    <string name="amount_detail_title">Amount products:</string>
+    <string name="product_price_title">Product price:</string>
+    <string name="load_data">Load data</string>
 </resources>
