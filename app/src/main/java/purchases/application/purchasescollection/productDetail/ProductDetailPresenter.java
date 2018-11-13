@@ -29,7 +29,49 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
     }
 
     @Override
-    public void start() { openProduct(); }
+    public void start() {
+
+        this.productDetailView.showLoadProduct();
+
+        openProduct();
+    }
+
+    @Override
+    public void editProduct() {
+        if(Strings.isNullOrEmpty(productId)) {
+            productDetailView.showMissingProduct();
+            return;
+        }
+
+        productDetailView.showEditedProduct(productId);
+    }
+
+    @Override
+    public void deleteProduct() {
+
+        if(Strings.isNullOrEmpty(productId)) {
+            productDetailView.showMissingProduct();
+            return;
+        }
+
+        productDetailView.showLoadProduct();
+        productLocaleDataSource.deleteProduct(productId);
+        productDetailView.showTaskDeleted();
+    }
+
+    @Override
+    public void buyProduct() {
+
+        if(Strings.isNullOrEmpty(productId)) {
+            productDetailView.showMissingProduct();
+            return;
+        }
+
+        productDetailView.showLoadProduct();
+        productLocaleDataSource.buyProduct(productId);
+        loadProduct();
+    }
+
 
     private void openProduct() {
 
@@ -38,6 +80,10 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
             return;
         }
 
+        loadProduct();
+    }
+
+    private void loadProduct(){
         productLocaleDataSource.getProduct(productId, new ProductDataSource.LoadProductCallback() {
             @Override
             public void onProductLoad(Product product) {
@@ -65,53 +111,20 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
         });
     }
 
-    @Override
-    public void editProduct() {
-        if(Strings.isNullOrEmpty(productId)) {
-            productDetailView.showMissingProduct();
-            return;
-        }
-
-        productDetailView.showEditedProduct(productId);
-    }
-
-    @Override
-    public void deleteProduct() {
-        if(Strings.isNullOrEmpty(productId)) {
-            productDetailView.showMissingProduct();
-            return;
-        }
-
-        productLocaleDataSource.deleteProduct(productId);
-        productDetailView.showTaskDeleted();
-    }
-
-    @Override
-    public void buyProduct() {
-        if(Strings.isNullOrEmpty(productId)) {
-            productDetailView.showMissingProduct();
-            return;
-        }
-
-        productLocaleDataSource.buyProduct(productId);
-        productDetailView.showBuyProduct();
-    }
-
     private void showProduct(Product product) {
 
-        String title = product.getName();
-        String description = product.toString();
+        if(!product.isEmpty()) {
+            productDetailView.setName(product.getName());
+            productDetailView.setAmount(product.getAmount());
+            productDetailView.setPrice(product.getPrice());
+            productDetailView.setBuy(product.isParchedOrNot());
 
-        if (Strings.isNullOrEmpty(title)) {
-            productDetailView.hideTitle();
-        } else {
-            productDetailView.showTitle(title);
-        }
+            productDetailView.setOptionBuy(product.getBuy());
 
-        if (Strings.isNullOrEmpty(description)) {
-            productDetailView.hideInformation();
+            productDetailView.showDetailProduct();
         } else {
-            productDetailView.showInformation(description);
+            productDetailView.showMissingProduct();
         }
     }
+
 }

@@ -53,10 +53,10 @@ public class AddEditProductFragment extends Fragment implements AddEditProductCo
 
         View root = inflater.inflate(R.layout.fragment_add_edit_product, container, false);
 
-        name = (TextView) root.findViewById(R.id.product_name);
-        price = (TextView) root.findViewById(R.id.product_price);
-        amount = (TextView) root.findViewById(R.id.product_amount);
-        buy = (Switch) root.findViewById(R.id.product_buy);
+        name = root.findViewById(R.id.product_name);
+        price = root.findViewById(R.id.product_price);
+        amount = root.findViewById(R.id.product_amount);
+        buy = root.findViewById(R.id.product_buy);
 
 
         setHasOptionsMenu(true);

@@ -79,13 +79,8 @@ public final class Product {
         return amount;
     }
 
-    public boolean isBuy() {
-        return buy;
-    }
-
-    public boolean isPurche() {
-        return !buy;
-    }
+    @Nullable
+    public boolean getBuy() { return buy; }
 
     public boolean isEmpty() {
         return Strings.isNullOrEmpty(name)
@@ -103,7 +98,7 @@ public final class Product {
                 statusIsBuy;
     }
 
-    private String isParchedOrNot() {
+    public String isParchedOrNot() {
         if(buy) {
             return " Product is bought.";
         } else {
