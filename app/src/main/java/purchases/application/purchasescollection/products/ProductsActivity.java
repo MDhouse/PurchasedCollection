@@ -14,10 +14,12 @@ import android.widget.FrameLayout;
 
 import purchases.application.purchasescollection.R;
 import purchases.application.purchasescollection.utilities.ActivityUtilities;
-import purchases.application.purchasescollection.utilities.ChangeTemplate;
 import purchases.application.purchasescollection.utilities.Injector;
+import purchases.application.purchasescollection.utilities.preferences.ThemeInfo;
 
-public class ProductsActivity extends AppCompatActivity {
+public class ProductsActivity extends AppCompatActivity  {
+
+    private ThemeInfo themeInfo;
 
     private ProductsPresenter productsPresenter;
 
@@ -25,15 +27,18 @@ public class ProductsActivity extends AppCompatActivity {
 
     private FrameLayout frameLayout;
 
-    public ProductsActivity() {
-    }
+    public ProductsActivity() { }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.themeInfo = new ThemeInfo(this.getApplicationContext());
+
+        setTheme(this.themeInfo.getThemeApplication());
+
         setContentView(R.layout.activity_products);
 
-        ChangeTemplate.onActivityCreateSetTheme(this);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
@@ -45,7 +50,8 @@ public class ProductsActivity extends AppCompatActivity {
 
         // Set up the navigation drawer.
         drawerLayout = findViewById(R.id.drawer_layout);
-        drawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
+        // drawerLayout.setStatusBarBackground(R.attr.colorPrimary);
+
         NavigationView navigationView = findViewById(R.id.drawer_navigation);
         if (navigationView != null) {
             setupDrawerContent(navigationView);
@@ -96,7 +102,12 @@ public class ProductsActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
+
     private void changeTemplate() {
-      ChangeTemplate.changeToTheme(this, ChangeTemplate.THEME_WHITE);
+
+        int theme = this.themeInfo.getThemeApplication() == this.themeInfo.DEFAULT_THEME ? this.themeInfo.MINT_THEME :  this.themeInfo.DEFAULT_THEME;
+
+        this.themeInfo.setThemeApplication(theme);
+        recreate();
     }
 }
