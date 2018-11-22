@@ -46,7 +46,6 @@ public class ProductLocaleDataSource implements ProductDataSource {
 
             applicationExecutor.getMainThread().execute(() -> {
                 if (products.isEmpty()) {
-                    // This will be called if the table is new or just empty.
                     callback.onDataNotAvailable();
                 } else {
                     callback.onProductsLoad(products);

@@ -13,39 +13,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <include layout="@layout/include_toolbar"></include>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="@style/Toolbar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-        </android.support.design.widget.AppBarLayout>
 
         <android.support.design.widget.CoordinatorLayout
             android:id="@+id/coordinator_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/content_frame"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            <include layout="@layout/include_frame_content"></include>
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_add_product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="?colorAccent"
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@drawable/ic_action_add"
+                android:tint="?attr/buttonTextColor"
                 app:fabSize="normal"
                 app:layout_anchor="@id/content_frame"
                 app:layout_anchorGravity="bottom|right|end" />
+
         </android.support.design.widget.CoordinatorLayout>
 
     </LinearLayout>
@@ -60,4 +49,5 @@
         app:menu="@menu/drawer_action">
 
     </android.support.design.widget.NavigationView>
+
 </android.support.v4.widget.DrawerLayout>

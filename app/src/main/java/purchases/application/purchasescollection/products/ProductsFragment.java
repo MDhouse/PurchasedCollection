@@ -2,21 +2,14 @@ package purchases.application.purchasescollection.products;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,20 +19,21 @@ import purchases.application.purchasescollection.addEditProduct.AddEditProductAc
 import purchases.application.purchasescollection.data.Product;
 import purchases.application.purchasescollection.interfaces.ItemListListener;
 import purchases.application.purchasescollection.productDetail.ProductDetailActivity;
-import purchases.application.purchasescollection.utilities.ChangeTemplate;
+import purchases.application.purchasescollection.utilities.preferences.FontSupport;
+import purchases.application.purchasescollection.utilities.preferences.ThemeSupport;
 
-import static android.graphics.Color.BLUE;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 
 public class ProductsFragment extends Fragment implements ProductsContract.View {
 
     private ProductsContract.Presenter presenter;
+
     private ProductsAdapter productsAdapter;
-    private View noProductView;
-    private TextView noProductMainView;
-    private TextView noProductAddView;
-    private LinearLayout productView;
+
+    private LinearLayout productNotData;
+
+    private LinearLayout productData;
 
     public ProductsFragment() {
     }
@@ -66,7 +60,13 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        productsAdapter = new ProductsAdapter(new ArrayList<Product>(0), productItemListListener);
+
+        getActivity().setTheme( new ThemeSupport( getActivity()).getThemeApplication());
+        getActivity().getTheme().applyStyle(new FontSupport( getActivity()).getFontStyle().getResId(), true);
+
+        setHasOptionsMenu(true);
+
+        productsAdapter = new ProductsAdapter(new ArrayList<>(0), productItemListListener);
     }
 
     @Override
@@ -77,23 +77,15 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
         ListView products = root.findViewById(R.id.products_list);
         products.setAdapter(productsAdapter);
 
-        productView = root.findViewById(R.id.products);
+        productData = root.findViewById(R.id.products);
 
-        noProductView = root.findViewById(R.id.no_products);
-        noProductMainView = root.findViewById(R.id.no_products_main);
-        noProductAddView = root.findViewById(R.id.no_products_add);
+        productNotData = root.findViewById(R.id.no_products);
 
         FloatingActionButton fab = getActivity().findViewById(R.id.fab_add_product);
         fab.setImageResource(R.drawable.ic_action_add);
         fab.setOnClickListener(v -> presenter.addNewProduct());
 
         final SwipeChildRefreshLayout swipeLayout = root.findViewById(R.id.refresh_layout);
-
-        swipeLayout.setColorSchemeColors(
-                ContextCompat.getColor(getActivity(), R.color.white),
-                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
-                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
-        );
 
         swipeLayout.setScrollUpChild(products);
 
@@ -120,8 +112,8 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
 
         productsAdapter.replaceData(products);
 
-        productView.setVisibility(View.VISIBLE);
-        noProductView.setVisibility(View.GONE);
+        productNotData.setVisibility(View.GONE);
+        productData.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -134,7 +126,9 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
     @Override
     public void showNoProducts() {
 
-        showNoProductsView(getResources().getString(R.string.empty_product_message), false);
+        productsAdapter.resetData();
+        productData.setVisibility(View.GONE);
+        productNotData.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -144,15 +138,6 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
         startActivity(intent);
     }
 
-
-    private void showNoProductsView(String text, boolean showAddView) {
-
-        productView.setVisibility(View.GONE);
-        noProductView.setVisibility(View.VISIBLE);
-
-        noProductMainView.setText(text);
-        noProductAddView.setVisibility(showAddView ? View.VISIBLE : View.GONE);
-    }
 
     @Override
     public boolean isActive() {

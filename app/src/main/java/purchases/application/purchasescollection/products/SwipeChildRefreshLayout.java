@@ -19,6 +19,7 @@ public class SwipeChildRefreshLayout extends android.support.v4.widget.SwipeRefr
     }
 
     public void setScrollUpChild(View scrollUpChild) {
+
         this.scrollUpChild = scrollUpChild;
     }
 }

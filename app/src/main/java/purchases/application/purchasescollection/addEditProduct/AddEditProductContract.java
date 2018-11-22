@@ -30,7 +30,11 @@ public interface AddEditProductContract {
 
         void saveProduct(String name, double price, int amount, boolean buy);
 
-        void populateTask();
+        void populateProduct();
+
+        boolean isNewProduct();
+
+        boolean isVerify(String name, double price, int amount, boolean buy);
 
         boolean isDataMissing();
     }
