@@ -18,8 +18,6 @@ public class ProductsPresenter implements ProductsContract.Presenter {
 
     private final ProductsContract.View productView;
 
-    private boolean firstLoad = true;
-
     public ProductsPresenter(@NonNull ProductDataSource productDataSource, @NonNull ProductsContract.View productView) {
         this.productDataSource = checkNotNull(productDataSource);
         this.productView = checkNotNull(productView);
@@ -28,7 +26,9 @@ public class ProductsPresenter implements ProductsContract.Presenter {
     }
 
     @Override
-    public void start() { loadProducts(false); }
+    public void start() {
+        loadProducts(false);
+    }
 
     @Override
     public void result(int requestCode, int resultCode) {
@@ -43,18 +43,16 @@ public class ProductsPresenter implements ProductsContract.Presenter {
         productDataSource.getProducts(new ProductDataSource.LoadProductsCallback() {
             @Override
             public void onProductsLoad(List<Product> products) {
-                processProduct(products);
+                productView.showProducts(products);
             }
 
             @Override
             public void onDataNotAvailable() {
                 if (productView.isActive()){
-                    return;
+                    productView.showNoProducts();
                 }
             }
         });
-
-        firstLoad = false;
     }
 
     @Override
@@ -65,36 +63,21 @@ public class ProductsPresenter implements ProductsContract.Presenter {
     @Override
     public void openProductDetail(@NonNull Product product) {
 
-        checkNotNull(product, "Product can be null");
+        checkNotNull(product);
         productView.showDetailProduct(product.getId());
     }
 
     @Override
     public void buyProduct(@NonNull Product product) {
 
-        checkNotNull(product, "Product can be null");
+        checkNotNull(product);
         productDataSource.buyProduct(product);
-        loadProducts(false, false);
+        loadProducts(false);
     }
 
     @Override
     public void notBuyProduct(@NonNull Product product) {
-        checkNotNull(product, "activeProduct cannot be null");
+        checkNotNull(product);
         productDataSource.notBuyProduct(product);
-    }
-
-    private void loadProducts(boolean forceUpdate, final boolean showLoading){
-
-
-
-
-    }
-
-    private void processProduct(List<Product> products){
-        if (products.isEmpty()){
-            productView.showNoProducts();
-        } else {
-            productView.showProducts(products);
-        }
     }
 }

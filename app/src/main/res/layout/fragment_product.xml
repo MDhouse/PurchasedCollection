@@ -39,13 +39,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:textSize="?attr/font_large"
                 android:layout_marginBottom="@dimen/no_product_container_title_margin_bottom"
                 android:text="@string/product_not_buy" />
 
             <TextView
                 android:id="@+id/no_products_add"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/no_product_container_add_height"
+                android:layout_height="48dp"
+                android:textSize="?attr/font_large"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/product_to_buy" />
 

@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import purchases.application.purchasescollection.R;
-import purchases.application.purchasescollection.utilities.ActivityUtilities;
-import purchases.application.purchasescollection.utilities.ChangeTemplate;
-import purchases.application.purchasescollection.utilities.Injector;
+import purchases.application.purchasescollection.utilities.activity.ActivityUtilities;
+import purchases.application.purchasescollection.utilities.inject.Injector;
+import purchases.application.purchasescollection.utilities.preferences.FontSupport;
+import purchases.application.purchasescollection.utilities.preferences.ThemeSupport;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
@@ -19,9 +20,11 @@ public class ProductDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_detail);
 
-        ChangeTemplate.onActivityCreateSetTheme(this);
+        setTheme( new ThemeSupport(this).getThemeApplication());
+        getTheme().applyStyle(new FontSupport(this).getFontStyle().getResId(), true);
+
+        setContentView(R.layout.activity_product_detail);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,11 +43,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             ActivityUtilities.addFragmentToActivity(getSupportFragmentManager(), productDetailFragment, R.id.content_frame);
         }
 
-        new ProductDetailPresenter(
-                Injector.provideTasksRepository(getApplicationContext()),
-                productDetailFragment,
-                productId
-        );
+        new ProductDetailPresenter(Injector.provideTasksRepository(getApplicationContext()), productDetailFragment, productId);
     }
 
     @Override

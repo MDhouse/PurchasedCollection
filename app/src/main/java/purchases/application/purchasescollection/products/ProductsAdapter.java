@@ -32,6 +32,11 @@ class ProductsAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void resetData() {
+        this.items.clear();
+        notifyDataSetChanged();
+    }
+
     private void setList(List<Product> itemList) {
         items = checkNotNull(itemList);
     }

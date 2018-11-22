@@ -19,6 +19,8 @@ public class AddEditProductPresenter implements AddEditProductContract.Presenter
     @Nullable
     private String productId;
 
+    private Product product;
+
     private boolean isDataMissing;
 
     public AddEditProductPresenter(@NonNull ProductDataSource productDataSource,
@@ -35,20 +37,13 @@ public class AddEditProductPresenter implements AddEditProductContract.Presenter
 
     @Override
     public void start() {
-        if (!isNewProduct() && isDataMissing()) {
-            populateTask();
+
+        if (onStart()) {
+            populateProduct();
             addProductView.showSwitch();
         } else {
             addProductView.hideSwitch();
         }
-    }
-
-    @Override
-    public void populateTask() {
-        if (isNewProduct()) {
-            throw new RuntimeException("populateTask() was called but task is new.");
-        }
-        productDataSource.getProduct(productId, this);
     }
 
     @Override
@@ -62,7 +57,44 @@ public class AddEditProductPresenter implements AddEditProductContract.Presenter
     }
 
     @Override
+    public void populateProduct() {
+        if (isNewProduct()) {
+            throw new RuntimeException("populateTask() was called but task is new.");
+        }
+        productDataSource.getProduct(productId, this);
+    }
+
+    @Override
+    public boolean isVerify(String name, double price, int amount, boolean buy) {
+
+        if (!this.product.getName().equalsIgnoreCase(name)) {
+            return true;
+        }
+
+        if(this.product.getPrice() != price) {
+            return true;
+        }
+
+        if(this.product.getAmount() != amount) {
+            return true;
+        }
+
+        if(this.product.getBuy() != buy) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean isNewProduct() {
+
+        return productId == null;
+    }
+
+    @Override
     public boolean isDataMissing() {
+
         return isDataMissing;
     }
 
@@ -70,10 +102,15 @@ public class AddEditProductPresenter implements AddEditProductContract.Presenter
     public void onProductLoad(Product product) {
 
         if (addProductView.isActive()) {
+
+            this.product = product;
+
             addProductView.setName(product.getName());
             addProductView.setPrice(product.getPrice());
             addProductView.setAmount(product.getAmount());
+            addProductView.setBuy(product.getBuy());
         }
+
         isDataMissing = false;
     }
 
@@ -86,8 +123,9 @@ public class AddEditProductPresenter implements AddEditProductContract.Presenter
     }
 
 
-    private boolean isNewProduct() {
-        return productId == null;
+    private boolean onStart() {
+
+        return !isNewProduct() && isDataMissing();
     }
 
     private void createProduct(String name, double price, int amount) {
@@ -103,9 +141,6 @@ public class AddEditProductPresenter implements AddEditProductContract.Presenter
 }
 
     private void updateProduct(String name, double price, int amount, boolean buy) {
-        if (isNewProduct()) {
-            throw new RuntimeException("updateProduct() was called but task is new.");
-        }
 
         productDataSource.saveProduct(new Product(productId, name, price, amount, buy));
         addProductView.showProductList();

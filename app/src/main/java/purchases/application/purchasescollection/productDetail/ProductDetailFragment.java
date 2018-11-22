@@ -20,6 +20,8 @@ import android.widget.TextView;
 import purchases.application.purchasescollection.R;
 import purchases.application.purchasescollection.addEditProduct.AddEditProductActivity;
 import purchases.application.purchasescollection.addEditProduct.AddEditProductFragment;
+import purchases.application.purchasescollection.utilities.preferences.FontSupport;
+import purchases.application.purchasescollection.utilities.preferences.ThemeSupport;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -57,6 +59,9 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getActivity().setTheme( new ThemeSupport( getActivity()).getThemeApplication());
+        getActivity().getTheme().applyStyle(new FontSupport( getActivity()).getFontStyle().getResId(), true);
         setHasOptionsMenu(true);
     }
 
@@ -67,7 +72,7 @@ public class ProductDetailFragment extends Fragment implements ProductDetailCont
         View root = inflater.inflate(R.layout.fragment_product_detail, container, false);
         setHasOptionsMenu(true);
 
-        detailLoad = root.findViewById(R.id.product_detail_load);
+        detailLoad = root.findViewById(R.id.execute_action);
         detailData = root.findViewById(R.id.product_detail_data);
         detailNoData = root.findViewById(R.id.product_detail_no_date);
 
