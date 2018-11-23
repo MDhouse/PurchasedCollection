@@ -24,11 +24,12 @@ public class AddEditProductPresenter implements AddEditProductContract.Presenter
     private boolean isDataMissing;
 
     public AddEditProductPresenter(@NonNull ProductDataSource productDataSource,
-                                   @NonNull AddEditProductContract.View mAddTaskView,
+                                   @NonNull AddEditProductContract.View addProductView,
                                    @Nullable String productId,
                                    boolean isDataMissing) {
+
         this.productDataSource = checkNotNull(productDataSource);
-        this.addProductView = checkNotNull(mAddTaskView);
+        this.addProductView = checkNotNull(addProductView);
         this.productId = productId;
         this.isDataMissing = isDataMissing;
 
@@ -136,6 +137,7 @@ public class AddEditProductPresenter implements AddEditProductContract.Presenter
             addProductView.showEmptyProductError();
         } else {
             productDataSource.saveProduct(newProduct);
+            addProductView.toIntent(newProduct.getId(), newProduct.toString());
             addProductView.showProductList();
         }
 }
@@ -145,4 +147,13 @@ public class AddEditProductPresenter implements AddEditProductContract.Presenter
         productDataSource.saveProduct(new Product(productId, name, price, amount, buy));
         addProductView.showProductList();
     }
+
+//    private void productIntent(String productInformation) {
+//
+//        Intent myServiceIntent = new Intent(this, "AddEditProductPresenter");
+//
+//        this.broadcastService.onHandleIntent(news);
+//
+//
+//    }
 }

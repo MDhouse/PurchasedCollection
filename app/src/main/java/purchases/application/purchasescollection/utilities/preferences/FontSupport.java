@@ -7,7 +7,6 @@ import android.support.v7.preference.PreferenceManager;
 public class FontSupport {
 
     private static final String KEY = "fonts_application";
-    private static final String DEFAULT_VALUE = "purple_dark";
 
     private SharedPreferences sharedPreferences;
 
