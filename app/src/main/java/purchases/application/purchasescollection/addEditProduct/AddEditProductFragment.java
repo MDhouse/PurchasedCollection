@@ -1,9 +1,12 @@
 package purchases.application.purchasescollection.addEditProduct;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +24,12 @@ public class AddEditProductFragment extends Fragment implements AddEditProductCo
 
     public static final String ARGUMENT_EDIT_PRODUCT_ID = "EDIT_PRODUCT_ID";
 
+    private static final String ACTION_NEW_MSG = "CRATERED_PRODUCT";
+    private static final String PRODUCT_ID_INTENT = "PRODUCT_ID";
+    private static final String PRODUCT_CONTENT_INTENT = "PRODUCT_CONTENT";
+
     private AddEditProductContract.Presenter presenter;
+
 
     private FloatingActionButton fab;
 
@@ -30,6 +38,7 @@ public class AddEditProductFragment extends Fragment implements AddEditProductCo
     private EditText name, price, amount;
     private Switch buy;
 
+    @NonNull
     public static AddEditProductFragment newInstance() {
         return new AddEditProductFragment();
     }
@@ -49,6 +58,7 @@ public class AddEditProductFragment extends Fragment implements AddEditProductCo
 
         getActivity().setTheme( new ThemeSupport( getActivity()).getThemeApplication());
         getActivity().getTheme().applyStyle(new FontSupport( getActivity()).getFontStyle().getResId(), true);
+
 
         this.fab = getActivity().findViewById(R.id.fab_product_edit_done);
         this.fab.setImageResource(R.drawable.ic_done);
@@ -120,6 +130,16 @@ public class AddEditProductFragment extends Fragment implements AddEditProductCo
     }
 
     @Override
+    public void toIntent(String idProduct, String contentProduct) {
+
+        Intent toSend = new Intent(this.ACTION_NEW_MSG);
+        toSend.putExtra(this.PRODUCT_ID_INTENT, idProduct);
+        toSend.putExtra(this.PRODUCT_CONTENT_INTENT, contentProduct);
+
+        getActivity().sendBroadcast(toSend);
+    }
+
+    @Override
     public boolean isActive() {
 
         return isAdded();
@@ -130,6 +150,7 @@ public class AddEditProductFragment extends Fragment implements AddEditProductCo
         this.presenter = checkNotNull(presenter);
     }
 
+    @NonNull
     private String getName() {
         return name.getText().toString();
     }
@@ -177,7 +198,7 @@ public class AddEditProductFragment extends Fragment implements AddEditProductCo
         return (this.valid(name) && this.valid(price) && this.valid(amount));
     }
 
-    private boolean valid(EditText editText) {
+    private boolean valid(@NonNull EditText editText) {
 
         return editText.getText().toString().trim().length() > 0;
     }

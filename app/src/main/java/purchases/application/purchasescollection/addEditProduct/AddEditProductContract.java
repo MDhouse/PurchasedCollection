@@ -23,6 +23,8 @@ public interface AddEditProductContract {
 
         void setBuy(boolean buy);
 
+        void toIntent(String idProduct, String contentProduct);
+
         boolean isActive();
     }
 

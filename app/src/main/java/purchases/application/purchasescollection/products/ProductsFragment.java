@@ -138,7 +138,6 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
         startActivity(intent);
     }
 
-
     @Override
     public boolean isActive() {
         return isAdded();

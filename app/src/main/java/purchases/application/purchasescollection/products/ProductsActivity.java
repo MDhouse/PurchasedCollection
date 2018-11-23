@@ -23,6 +23,7 @@ public class ProductsActivity extends AppCompatActivity  {
     private ProductsPresenter productsPresenter;
 
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
     public ProductsActivity() { }
 
@@ -43,10 +44,9 @@ public class ProductsActivity extends AppCompatActivity  {
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
-        NavigationView navigationView = findViewById(R.id.drawer_navigation);
-        if (navigationView != null) {
-            setDrawerContent(navigationView);
-        }
+        this.navigationView = findViewById(R.id.drawer_navigation);
+
+        setDrawerContent();
 
         ProductsFragment productsFragment = (ProductsFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
 
@@ -79,22 +79,24 @@ public class ProductsActivity extends AppCompatActivity  {
         super.onRestart();
     }
 
-    private void setDrawerContent(NavigationView navigationView) {
+    private void setDrawerContent() {
 
-        navigationView.setNavigationItemSelectedListener(
-                menuItem -> {
-                    switch (menuItem.getItemId()) {
-                        case R.id.list_navigation_menu_item:
-                            break;
-                        case R.id.setting_navigation_menu_item:
-                            Intent intent = new Intent(this, SettingActivity.class);
-                            startActivity(intent);
-                            break;
-                        default:
-                            break;
-                    }
-                    drawerLayout.closeDrawers();
-                    return true;
-                });
+        if(this.navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(
+                    menuItem -> {
+                        switch (menuItem.getItemId()) {
+                            case R.id.list_navigation_menu_item:
+                                break;
+                            case R.id.setting_navigation_menu_item:
+                                Intent intent = new Intent(this, SettingActivity.class);
+                                startActivity(intent);
+                                break;
+                            default:
+                                break;
+                        }
+                        drawerLayout.closeDrawers();
+                        return true;
+                    });
+        }
     }
 }
