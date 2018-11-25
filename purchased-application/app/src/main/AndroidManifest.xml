@@ -11,15 +11,26 @@
         android:theme="@style/Theme.App.Mint">
         <activity
             android:name=".products.ProductsActivity"
-            android:theme="@style/Theme.App.Mint">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="purchases.application.purchasescollection.PRODUCT_LIST" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".addEditProduct.AddEditProductActivity" />
-        <activity android:name=".productDetail.ProductDetailActivity" />
+        <activity
+            android:name=".productDetail.ProductDetailActivity"
+            android:launchMode="singleTask"
+            android:parentActivityName=".products.ProductsActivity">
+            <intent-filter>
+                <action android:name="purchases.application.purchasescollection.PRODUCT_DETAIL" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".setting.SettingActivity" />
     </application>
 

@@ -92,9 +92,9 @@ public final class Product {
     public String toString() {
         String statusIsBuy = isParchedOrNot();
 
-        return "Product " + name + '\'' +
-                "Price: " + price + '\'' +
-                "Amount: " + amount + '\'' +
+        return "Product " + name +
+                "Price: $ " + price  +
+                "Amount: " + amount +
                 statusIsBuy;
     }
 

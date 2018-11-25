@@ -21,13 +21,12 @@ public class ThemeSupport {
 
     public int getThemeApplication() {
 
-        String prefTheme =  this.sharedPreferences.getString(KEY, null);
+        String prefTheme =  this.sharedPreferences.getString(KEY, DEFAULT_VALUE);
         return this.transformShared(prefTheme);
     }
 
     private int transformShared(String theme){
 
-        int te  = theme.equals(DEFAULT_VALUE) ? R.style.Theme_App : R.style.Theme_App_Mint;
-        return te;
+        return theme.equals(DEFAULT_VALUE) ? R.style.Theme_App : R.style.Theme_App_Mint;
     }
 }
