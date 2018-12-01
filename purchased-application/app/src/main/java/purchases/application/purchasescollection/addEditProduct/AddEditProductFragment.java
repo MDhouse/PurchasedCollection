@@ -1,11 +1,15 @@
 package purchases.application.purchasescollection.addEditProduct;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import java.util.List;
 
 import purchases.application.purchasescollection.R;
 import purchases.application.purchasescollection.utilities.preferences.FontSupport;
@@ -23,10 +29,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class AddEditProductFragment extends Fragment implements AddEditProductContract.View  {
 
     public static final String ARGUMENT_EDIT_PRODUCT_ID = "EDIT_PRODUCT_ID";
-
-    private static final String ACTION_NEW_MSG = "CRATERED_PRODUCT";
-    private static final String PRODUCT_ID_INTENT = "PRODUCT_ID";
-    private static final String PRODUCT_CONTENT_INTENT = "PRODUCT_CONTENT";
 
     private AddEditProductContract.Presenter presenter;
 
@@ -132,11 +134,13 @@ public class AddEditProductFragment extends Fragment implements AddEditProductCo
     @Override
     public void toIntent(String idProduct, String contentProduct) {
 
-        Intent toSend = new Intent(this.ACTION_NEW_MSG);
-        toSend.putExtra(this.PRODUCT_ID_INTENT, idProduct);
-        toSend.putExtra(this.PRODUCT_CONTENT_INTENT, contentProduct);
+        Intent toSend = new Intent();
 
-        getActivity().sendBroadcast(toSend);
+        toSend.setAction("CREATED_PRODUCT");
+        toSend.putExtra("PRODUCT_ID", idProduct);
+        toSend.putExtra("PRODUCT_CONTENT", contentProduct);
+
+        getActivity().sendBroadcast(toSend, "application.purchases.purchasedbroadcast.HANDLE_INTENT");
     }
 
     @Override

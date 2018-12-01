@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
 import application.purchases.purchasedbroadcast.R;
@@ -74,56 +73,56 @@ public class PurchasedNotification {
         notify(context, builder.build());
     }
 
-    public static void notifyReceiver(final Context context,
-                                      final String exampleString, final int number){
-
-
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                new Intent(), 0);
-
-        final Resources res = context.getResources();
-
-        final String title = res.getString(R.string.purchased_notification_title_template);
-        final String text = res.getString(R.string.purchased_notification_placeholder_text_template, exampleString);
-
-        //noinspection deprecation
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setSmallIcon(R.drawable.ic_stat_purchased)
-                .setContentTitle(title)
-                .setContentText(text)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setTicker(exampleString)
-                .setNumber(number)
-                .setContentIntent(
-                        PendingIntent.getActivity(
-                                context,
-                                0,
-                                new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com")),
-                                PendingIntent.FLAG_UPDATE_CURRENT))
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(text)
-                        .setBigContentTitle(title)
-                        .setSummaryText("Dummy summary text"))
-                .addAction(
-                        R.drawable.ic_action_stat_share,
-                        res.getString(R.string.action_share),
-                        PendingIntent.getActivity(
-                                context,
-                                0,
-                                Intent.createChooser(new Intent(Intent.ACTION_SEND)
-                                        .setType("text/plain")
-                                        .putExtra(Intent.EXTRA_TEXT, "Dummy text"), "Dummy title"),
-                                PendingIntent.FLAG_UPDATE_CURRENT))
-                .addAction(
-                        R.drawable.ic_action_stat_reply,
-                        res.getString(R.string.action_reply),
-                        null)
-                .setAutoCancel(true);
-
-        notify(context, builder.build());
-
-    }
+//    public static void notifyReceiver(final Context context,
+//                                      final String exampleString, final int number){
+//
+//
+//        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
+//                new Intent(), 0);
+//
+//        final Resources res = context.getResources();
+//
+//        final String title = res.getString(R.string.purchased_notification_title_template);
+//        final String text = res.getString(R.string.purchased_notification_placeholder_text_template, exampleString);
+//
+//        //noinspection deprecation
+//        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
+//                .setDefaults(Notification.DEFAULT_ALL)
+//                .setSmallIcon(R.drawable.ic_stat_purchased)
+//                .setContentTitle(title)
+//                .setContentText(text)
+//                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                .setTicker(exampleString)
+//                .setNumber(number)
+//                .setContentIntent(
+//                        PendingIntent.getActivity(
+//                                context,
+//                                0,
+//                                new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com")),
+//                                PendingIntent.FLAG_UPDATE_CURRENT))
+//                .setStyle(new NotificationCompat.BigTextStyle()
+//                        .bigText(text)
+//                        .setBigContentTitle(title)
+//                        .setSummaryText("Dummy summary text"))
+//                .addAction(
+//                        R.drawable.ic_action_stat_share,
+//                        res.getString(R.string.action_share),
+//                        PendingIntent.getActivity(
+//                                context,
+//                                0,
+//                                Intent.createChooser(new Intent(Intent.ACTION_SEND)
+//                                        .setType("text/plain")
+//                                        .putExtra(Intent.EXTRA_TEXT, "Dummy text"), "Dummy title"),
+//                                PendingIntent.FLAG_UPDATE_CURRENT))
+//                .addAction(
+//                        R.drawable.ic_action_stat_reply,
+//                        res.getString(R.string.action_reply),
+//                        null)
+//                .setAutoCancel(true);
+//
+//        notify(context, builder.build());
+//
+//    }
 
     private static void notify(final Context context, final Notification notification) {
 

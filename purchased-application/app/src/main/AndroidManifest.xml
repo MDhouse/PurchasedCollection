@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="purchases.application.purchasescollection">
 
+    <uses-permission android:name="application.purchases.purchasedbroadcast.HANDLE_INTENT" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_line_style"

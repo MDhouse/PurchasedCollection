@@ -1,10 +1,12 @@
 package purchases.application.purchasescollection.addEditProduct;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import purchases.application.purchasescollection.R;
 import purchases.application.purchasescollection.utilities.activity.ActivityUtilities;
@@ -63,6 +65,7 @@ public class AddEditProductActivity extends AppCompatActivity {
                 addEditTaskFragment,
                 productId,
                 shouldLoadDataFromRepo);
+
     }
 
     @Override
