@@ -138,8 +138,8 @@ public class AddEditProductFragment extends Fragment implements AddEditProductCo
         Intent toSend = new Intent();
 
         toSend.setAction("purchases.application.purchasescollection.CREATED_PRODUCT");
-        toSend.putExtra("PRODUCT_ID", idProduct);
-        toSend.putExtra("PRODUCT_CONTENT", contentProduct);
+        toSend.putExtra("PRODUCT_ID'S", idProduct);
+        toSend.putExtra("PRODUCT_CONTENT'S", contentProduct);
 
         getActivity().sendBroadcast(toSend, "application.purchases.purchasedbroadcast.HANDLE_INTENT");
     }

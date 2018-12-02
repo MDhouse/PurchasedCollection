@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import application.purchases.purchasedbroadcast.notification.NotificationConst;
+import application.purchases.purchasedbroadcast.notification.NotificationService;
+
 public class PurchasedReceiver extends BroadcastReceiver {
 
     public PurchasedReceiver() {
@@ -15,13 +18,14 @@ public class PurchasedReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         if ("purchases.application.purchasescollection.CREATED_PRODUCT".equals(intent.getAction())){
-            StringBuilder message = new StringBuilder();
 
-            message.append("Broadcast intent detected "
-                    + intent.getAction());
-            message.append(intent.getStringExtra("PRODUCT_CONTENT"));
+            final String idProduct = intent.getStringExtra(NotificationConst.getProductIdReceiver());
+            final String contentProduct = intent.getStringExtra(NotificationConst.getProductContentReceiver());
 
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+            Intent serviceIntent = new Intent(context, NotificationService.class);
+            serviceIntent.putExtra(NotificationConst.getProductIdReceiver(), idProduct);
+            serviceIntent.putExtra(NotificationConst.getProductContentReceiver(), contentProduct);
+            context.startService(serviceIntent);
         }
     }
 }
