@@ -3,12 +3,7 @@ package application.purchases.purchasedbroadcast;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
-
-import application.purchases.purchasedbroadcast.notification.PurchasedNotification;
-
-import static android.content.ContentValues.TAG;
 
 public class PurchasedReceiver extends BroadcastReceiver {
 
@@ -18,15 +13,15 @@ public class PurchasedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String message = "Broadcast intent detected "
-                + intent.getAction();
 
-        StringBuilder sb = new StringBuilder();
-        String log = sb.toString();
-        Log.d(TAG, message);
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        if ("purchases.application.purchasescollection.CREATED_PRODUCT".equals(intent.getAction())){
+            StringBuilder message = new StringBuilder();
 
-        // PurchasedNotification.notifyReceiver(context, message, 1);
+            message.append("Broadcast intent detected "
+                    + intent.getAction());
+            message.append(intent.getStringExtra("PRODUCT_CONTENT"));
 
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        }
     }
 }

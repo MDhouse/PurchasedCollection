@@ -2,6 +2,7 @@ package purchases.application.purchasescollection.addEditProduct;
 
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -136,7 +137,7 @@ public class AddEditProductFragment extends Fragment implements AddEditProductCo
 
         Intent toSend = new Intent();
 
-        toSend.setAction("CREATED_PRODUCT");
+        toSend.setAction("purchases.application.purchasescollection.CREATED_PRODUCT");
         toSend.putExtra("PRODUCT_ID", idProduct);
         toSend.putExtra("PRODUCT_CONTENT", contentProduct);
 

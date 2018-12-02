@@ -5,12 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".ReceiveActivity">
 
-    <Button
-        android:id="@+id/create_notify"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onNotify"
-        android:text="Button"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="208dp" />
+        android:text="Hello world"
+        tools:layout_editor_absoluteX="108dp"
+        tools:layout_editor_absoluteY="167dp" />
 </android.support.constraint.ConstraintLayout>
