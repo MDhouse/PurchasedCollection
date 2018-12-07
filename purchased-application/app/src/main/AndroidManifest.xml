@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App.Mint">
         <activity
-            android:name=".products.ProductsActivity"
+            android:name=".client.product.activity.ProductActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,11 +23,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".addEditProduct.AddEditProductActivity" />
+        <activity android:name=".client.product.activity.AddEditProductActivity" />
         <activity
             android:name=".productDetail.ProductDetailActivity"
             android:launchMode="singleTask"
-            android:parentActivityName=".products.ProductsActivity">
+            android:parentActivityName=".client.product.activity.ProductActivity">
             <intent-filter>
                 <action android:name="purchases.application.purchasescollection.PRODUCT_DETAIL" />
                 <category android:name="android.intent.category.DEFAULT" />

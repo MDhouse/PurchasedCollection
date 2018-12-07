@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import java.util.concurrent.Executor;
 
 public class MainThreadExecutor implements Executor {
+
     private Handler mainThreadHandler;
 
     public MainThreadExecutor() {

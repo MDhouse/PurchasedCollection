@@ -62,7 +62,7 @@ public class AddEditProductPresenter implements AddEditProductContract.Presenter
         if (isNewProduct()) {
             throw new RuntimeException("populateTask() was called but task is new.");
         }
-        productDataSource.getProduct(productId, this);
+        productDataSource.getProduct(productId, this.);
     }
 
     @Override

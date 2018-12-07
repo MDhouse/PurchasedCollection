@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import purchases.application.purchasescollection.R;
-import purchases.application.purchasescollection.addEditProduct.AddEditProductActivity;
+import purchases.application.purchasescollection.client.product.activity.AddEditProductActivity;
 import purchases.application.purchasescollection.addEditProduct.AddEditProductFragment;
 import purchases.application.purchasescollection.utilities.preferences.FontSupport;
 import purchases.application.purchasescollection.utilities.preferences.ThemeSupport;

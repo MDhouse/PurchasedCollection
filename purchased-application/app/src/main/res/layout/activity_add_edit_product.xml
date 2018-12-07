@@ -15,7 +15,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".addEditProduct.AddEditProductActivity">
+        tools:context=".client.product.activity.AddEditProductActivity">
 
         <include layout="@layout/include_frame_content"></include>
 
