@@ -12,7 +12,7 @@ import purchases.application.purchasescollection.infrastructure.model.command.Pr
 import purchases.application.purchasescollection.infrastructure.model.command.ProductUpdate;
 import purchases.application.purchasescollection.infrastructure.model.entity.Product;
 
-public class ProductRepository implements IProductService {
+public class ProductRepository implements IProductService<Product> {
 
 
     @Override

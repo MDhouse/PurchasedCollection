@@ -59,7 +59,7 @@ public class ProductFormActivity extends AppCompatActivity {
 
         new ProductFormPresenter(
                 productFormView,
-                Injector.provideRoomServices(getApplicationContext()),
+                Injector.provideFirebaseService(),
                 productId,
                 shouldLoadDataFromRepo);
     }

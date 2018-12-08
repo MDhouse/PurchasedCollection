@@ -43,7 +43,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             ActivityUtilities.addFragmentToActivity(getSupportFragmentManager(), productDetailView, R.id.content_frame);
         }
 
-         new ProductDetailPresenter(Injector.provideRoomServices(getApplicationContext()), productDetailView, productId);
+         new ProductDetailPresenter(Injector.provideFirebaseService(), productDetailView, productId);
     }
 
     @Override

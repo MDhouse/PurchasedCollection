@@ -12,7 +12,7 @@ import purchases.application.purchasescollection.infrastructure.model.command.Pr
 import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
 import purchases.application.purchasescollection.infrastructure.model.entity.Product;
 
-public interface IProductService {
+public interface IProductService<T> {
 
     void getAll(@NonNull ILoadProducts callback);
 
@@ -20,7 +20,7 @@ public interface IProductService {
 
     void create(@NonNull ProductCreate productCreate);
 
-    void create(@NonNull Product product);
+    void create(@NonNull T product);
 
     void update(@NonNull ProductUpdate productUpdate);
 

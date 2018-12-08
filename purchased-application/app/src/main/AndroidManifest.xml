@@ -3,6 +3,7 @@
     package="purchases.application.purchasescollection">
 
     <uses-permission android:name="application.purchases.purchasedbroadcast.HANDLE_INTENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"

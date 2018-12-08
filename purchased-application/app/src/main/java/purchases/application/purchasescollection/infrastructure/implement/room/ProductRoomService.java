@@ -21,7 +21,7 @@ import purchases.application.purchasescollection.common.utilities.executor.Appli
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class ProductRoomService implements IProductService {
+public class ProductRoomService implements IProductService<Product> {
 
     private static volatile ProductRoomService INSTANCE;
 
@@ -83,9 +83,7 @@ public class ProductRoomService implements IProductService {
     @Override
     public void create(@NonNull ProductCreate productCreate) {
 
-        checkNotNull(productCreate);
-
-        run(() -> productDao.create(productCreate.toProduct()));
+       create(productCreate.toEntity());
     }
 
     @Override

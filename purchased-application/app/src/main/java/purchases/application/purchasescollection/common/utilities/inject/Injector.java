@@ -3,6 +3,10 @@ package purchases.application.purchasescollection.common.utilities.inject;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import purchases.application.purchasescollection.infrastructure.implement.firebase.ProductFirebaseService;
 import purchases.application.purchasescollection.infrastructure.implement.room.ProductDatabase;
 import purchases.application.purchasescollection.infrastructure.implement.room.ProductRoomService;
 import purchases.application.purchasescollection.common.utilities.executor.ApplicationExecutor;
@@ -10,14 +14,6 @@ import purchases.application.purchasescollection.common.utilities.executor.Appli
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Injector {
-
-//    public static ProductLocaleDataSource provideTasksRepository(@NonNull Context context) {
-//
-//        checkNotNull(context);
-//        PurchasesDatabase database = PurchasesDatabase.getInstance(context);
-//
-//        return ProductLocaleDataSource.getInstance(database.productDao(), new ApplicationExecutor());
-//    }
 
     public static ProductRoomService provideRoomServices(@NonNull Context context) {
 
@@ -28,9 +24,11 @@ public class Injector {
         return ProductRoomService.getInstance(productDatabase.productDao(), new ApplicationExecutor());
     }
 
-    public static void provideFirebaseService(@NonNull Context context) {
+    public static ProductFirebaseService provideFirebaseService() {
 
-        checkNotNull(context);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference productReference = database.getReference("product");
 
+        return ProductFirebaseService.getInstance(productReference, new ApplicationExecutor());
     }
 }

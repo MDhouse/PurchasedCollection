@@ -39,4 +39,24 @@ public class Product {
 
         return result;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public boolean isBuy() {
+        return buy;
+    }
 }

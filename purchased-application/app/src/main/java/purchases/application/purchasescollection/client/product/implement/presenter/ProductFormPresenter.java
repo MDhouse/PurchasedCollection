@@ -11,7 +11,6 @@ import purchases.application.purchasescollection.infrastructure.model.command.Pr
 import purchases.application.purchasescollection.infrastructure.model.command.ProductSearch;
 import purchases.application.purchasescollection.infrastructure.model.command.ProductUpdate;
 import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
-import purchases.application.purchasescollection.infrastructure.model.entity.Product;
 
 public class ProductFormPresenter implements IProductFormPresenter, ILoadProduct {
 
@@ -121,7 +120,7 @@ public class ProductFormPresenter implements IProductFormPresenter, ILoadProduct
 
     private void createProduct(String name, double price, int amount) {
 
-        Product newProduct = new ProductCreate(name, price, amount).toProduct();
+        purchases.application.purchasescollection.infrastructure.model.firebase.Product newProduct = new ProductCreate(name, price, amount).toFirebase();
 
         productService.create(newProduct);
         productFormView.toIntent(newProduct.getId(), newProduct.toString());

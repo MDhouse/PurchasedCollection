@@ -27,7 +27,6 @@ public class ProductFormView extends Fragment implements IProductFormView {
 
     private IProductFormPresenter productFormPresenter;
 
-    private FloatingActionButton floatingActionButton;
     private TextView formEmpty;
     private EditText nameEdit, priceEdit, amountEdit;
     private Switch buySwitch;
@@ -51,15 +50,16 @@ public class ProductFormView extends Fragment implements IProductFormView {
         getActivity().setTheme( new ThemeSupport( getActivity()).getThemeApplication());
         getActivity().getTheme().applyStyle(new FontSupport( getActivity()).getFontStyle().getResId(), true);
 
-        floatingActionButton = getActivity().findViewById(R.id.fab_edit_product);
-        floatingActionButton.setImageResource(R.drawable.ic_done);;
+        final FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab_product_edit_done);
+        floatingActionButton.setImageResource(R.drawable.ic_done);
         floatingActionButton.setOnClickListener(v -> formValidate());
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_add_edit_product, container, false);
+
+        final View root = inflater.inflate(R.layout.fragment_add_edit_product, container, false);
 
         formEmpty = root.findViewById(R.id.product_form_empty);
 
@@ -67,7 +67,6 @@ public class ProductFormView extends Fragment implements IProductFormView {
         priceEdit = root.findViewById(R.id.product_price);
         amountEdit = root.findViewById(R.id.product_amount);
         buySwitch = root.findViewById(R.id.product_buy);
-
 
         errorDisplay(false);
         setHasOptionsMenu(true);

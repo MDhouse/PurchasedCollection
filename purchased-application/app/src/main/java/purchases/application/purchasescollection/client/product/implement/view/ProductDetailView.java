@@ -70,8 +70,10 @@ public class ProductDetailView extends Fragment implements IProductDetailView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_product_detail, container, false);
-        setHasOptionsMenu(true);
+        final View root = inflater.inflate(R.layout.fragment_product_detail, container, false);
+
+        final FloatingActionButton fab = getActivity().findViewById(R.id.fab_edit_product);
+        fab.setOnClickListener(v -> productDetailPresenter.editProduct());
 
         detailLoad = root.findViewById(R.id.execute_action);
         detailData = root.findViewById(R.id.product_detail_data);
@@ -82,8 +84,7 @@ public class ProductDetailView extends Fragment implements IProductDetailView {
         productAmount = root.findViewById(R.id.product_detail_amount);
         productIsBuy = root.findViewById(R.id.product_detail_status);
 
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab_edit_product);
-        fab.setOnClickListener(v -> productDetailPresenter.editProduct());
+        setHasOptionsMenu(true);
 
         return root;
     }
@@ -122,7 +123,7 @@ public class ProductDetailView extends Fragment implements IProductDetailView {
     @Override
     public void setDetailProduct(ProductDto product) {
 
-        productPrice.setText(product.getName());
+        productName.setText(product.getName());
         productPrice.setText(product.getPriceFormat());
         productAmount.setText(product.getAmountFormat());
         productIsBuy.setText(product.getInformation());
@@ -177,7 +178,7 @@ public class ProductDetailView extends Fragment implements IProductDetailView {
     }
 
     private void setStatusPurchases(boolean statusPurchases) {
-        this.statusPurchases = statusPurchases;
+        this.statusPurchases = !statusPurchases;
         setEnableMenu();
     }
 

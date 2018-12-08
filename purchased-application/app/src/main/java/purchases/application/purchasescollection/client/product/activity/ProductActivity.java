@@ -55,7 +55,7 @@ public class ProductActivity extends AppCompatActivity  {
             ActivityUtilities.addFragmentToActivity(getSupportFragmentManager(), productView, R.id.content_frame);
         }
 
-         new ProductPresenter(productView, Injector.provideRoomServices(getApplicationContext()));
+         new ProductPresenter(productView, Injector.provideFirebaseService());
     }
 
     @Override

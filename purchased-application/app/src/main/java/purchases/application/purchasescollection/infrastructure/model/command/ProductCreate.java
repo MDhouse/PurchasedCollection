@@ -1,5 +1,7 @@
 package purchases.application.purchasescollection.infrastructure.model.command;
 
+import java.util.UUID;
+
 import purchases.application.purchasescollection.infrastructure.model.entity.Product;
 
 public class ProductCreate {
@@ -26,8 +28,18 @@ public class ProductCreate {
         return amount;
     }
 
-    public Product toProduct() {
+    public Product toEntity() {
 
         return new Product(this.name, this.price, this.amount);
+    }
+
+    public purchases.application.purchasescollection.infrastructure.model.firebase.Product toFirebase() {
+        return new purchases.application.purchasescollection.infrastructure.model.firebase.Product(
+                UUID.randomUUID().toString(),
+                name,
+                price,
+                amount,
+                false
+        );
     }
 }
