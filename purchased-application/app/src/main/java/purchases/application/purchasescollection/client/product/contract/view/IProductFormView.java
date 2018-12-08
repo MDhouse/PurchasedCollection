@@ -1,7 +1,8 @@
 package purchases.application.purchasescollection.client.product.contract.view;
 
-import purchases.application.purchasescollection.client.product.contract.IView;
+import purchases.application.purchasescollection.common.contract.IView;
 import purchases.application.purchasescollection.client.product.contract.presenter.IProductFormPresenter;
+import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
 
 public interface IProductFormView extends IView<IProductFormPresenter> {
 
@@ -13,15 +14,7 @@ public interface IProductFormView extends IView<IProductFormPresenter> {
 
     void hideSwitch();
 
-    void setName(String name);
-
-    void setPrice(double price);
-
-    void setAmount(int amount);
-
-    void setBuy(boolean buy);
+    void setProduct(ProductDto product);
 
     void toIntent(String idProduct, String contentProduct);
-
-    boolean isActive();
 }

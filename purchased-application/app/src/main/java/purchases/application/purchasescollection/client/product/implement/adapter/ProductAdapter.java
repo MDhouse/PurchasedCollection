@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import purchases.application.purchasescollection.R;
-import purchases.application.purchasescollection.client.product.contract.IlistListener;
+import purchases.application.purchasescollection.common.contract.IListListener;
 import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -18,9 +18,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ProductAdapter extends BaseAdapter {
 
     private List<ProductDto> products;
-    private IlistListener<ProductDto> listener;
+    private IListListener<ProductDto> listener;
 
-    public ProductAdapter(List<ProductDto> products, IlistListener<ProductDto> listener) {
+    public ProductAdapter(List<ProductDto> products, IListListener<ProductDto> listener) {
         setList(products);
         this.listener = listener;
     }

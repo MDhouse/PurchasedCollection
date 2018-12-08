@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import purchases.application.purchasescollection.infrastructure.contract.ILoadProduct;
+import purchases.application.purchasescollection.infrastructure.contract.ILoadProducts;
 import purchases.application.purchasescollection.infrastructure.contract.IProductService;
 import purchases.application.purchasescollection.infrastructure.contract.room.ProductDao;
 import purchases.application.purchasescollection.infrastructure.model.command.ProductCreate;
@@ -15,7 +17,7 @@ import purchases.application.purchasescollection.infrastructure.model.command.Pr
 import purchases.application.purchasescollection.infrastructure.model.command.ProductUpdate;
 import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
 import purchases.application.purchasescollection.infrastructure.model.entity.Product;
-import purchases.application.purchasescollection.utilities.executor.ApplicationExecutor;
+import purchases.application.purchasescollection.common.utilities.executor.ApplicationExecutor;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -42,7 +44,7 @@ public class ProductRoomService implements IProductService {
 
 
     @Override
-    public void getAll(@NonNull LoadProducts callback) {
+    public void getAll(@NonNull ILoadProducts callback) {
 
         run(() -> {
             final List<Product> products = productDao.getAll();
@@ -58,7 +60,7 @@ public class ProductRoomService implements IProductService {
     }
 
     @Override
-    public void get(@NonNull ProductSearch productSearch, @NonNull LoadProduct callback) {
+    public void get(@NonNull ProductSearch productSearch, @NonNull ILoadProduct callback) {
 
         run(() -> {
             final Product product =
@@ -84,6 +86,14 @@ public class ProductRoomService implements IProductService {
         checkNotNull(productCreate);
 
         run(() -> productDao.create(productCreate.toProduct()));
+    }
+
+    @Override
+    public void create(@NonNull Product product) {
+
+        checkNotNull(product);
+
+        run(() -> productDao.create(product));
     }
 
     @Override

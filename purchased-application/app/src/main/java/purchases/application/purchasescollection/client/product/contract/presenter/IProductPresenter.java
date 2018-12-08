@@ -2,7 +2,7 @@ package purchases.application.purchasescollection.client.product.contract.presen
 
 import android.support.annotation.NonNull;
 
-import purchases.application.purchasescollection.client.product.contract.IPresenter;
+import purchases.application.purchasescollection.common.contract.IPresenter;
 
 public interface IProductPresenter extends IPresenter {
 

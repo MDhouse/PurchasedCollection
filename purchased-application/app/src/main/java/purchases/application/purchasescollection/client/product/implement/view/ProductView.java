@@ -1,5 +1,6 @@
 package purchases.application.purchasescollection.client.product.implement.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import purchases.application.purchasescollection.R;
-import purchases.application.purchasescollection.client.component.SwipeChildRefreshLayout;
-import purchases.application.purchasescollection.client.product.contract.IlistListener;
+import purchases.application.purchasescollection.client.product.activity.ProductDetailActivity;
+import purchases.application.purchasescollection.client.product.activity.ProductFormActivity;
+import purchases.application.purchasescollection.common.componenent.SwipeChildRefreshLayout;
+import purchases.application.purchasescollection.common.contract.IListListener;
 import purchases.application.purchasescollection.client.product.contract.presenter.IProductPresenter;
 import purchases.application.purchasescollection.client.product.contract.view.IProductView;
 import purchases.application.purchasescollection.client.product.implement.adapter.ProductAdapter;
@@ -24,7 +27,7 @@ import purchases.application.purchasescollection.infrastructure.model.dto.Produc
 public class ProductView extends Fragment implements IProductView {
 
     private IProductPresenter productPresenter;
-    private IlistListener<ProductDto> productListListener;
+    private IListListener<ProductDto> productListListener;
 
     private ProductAdapter productAdapter;
 
@@ -98,16 +101,16 @@ public class ProductView extends Fragment implements IProductView {
     @Override
     public void showFormProduct() {
 
-//        Intent intent = new Intent(getContext(), AddEditProductActivity.class);
-//        startActivityForResult(intent, AddEditProductActivity.REQUEST_ADD_TASK);
+        Intent intent = new Intent(getContext(), ProductFormActivity.class);
+        startActivityForResult(intent, ProductFormActivity.REQUEST_ADD_TASK);
     }
 
     @Override
     public void showDetailProduct(String productId) {
 
-//        Intent intent = new Intent(getContext(), ProductDetailActivity.class);
-//        intent.putExtra(ProductDetailActivity.PRODUCT_ID, productId);
-//        startActivity(intent);
+        Intent intent = new Intent(getContext(), ProductDetailActivity.class);
+        intent.putExtra(ProductDetailActivity.PRODUCT_ID, productId);
+        startActivity(intent);
     }
 
     @Override
@@ -123,7 +126,7 @@ public class ProductView extends Fragment implements IProductView {
     private void loadAdapter() {
 
         if(productListListener == null) {
-            productListListener = new IlistListener<ProductDto>() {
+            productListListener = new IListListener<ProductDto>() {
                 @Override
                 public void click(ProductDto item) {
                     productPresenter.detailProduct(item.getId());

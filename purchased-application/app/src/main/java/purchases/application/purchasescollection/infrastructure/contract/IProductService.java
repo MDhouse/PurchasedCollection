@@ -10,14 +10,17 @@ import purchases.application.purchasescollection.infrastructure.model.command.Pr
 import purchases.application.purchasescollection.infrastructure.model.command.ProductDelete;
 import purchases.application.purchasescollection.infrastructure.model.command.ProductUpdate;
 import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
+import purchases.application.purchasescollection.infrastructure.model.entity.Product;
 
 public interface IProductService {
 
-    void getAll(@NonNull LoadProducts callback);
+    void getAll(@NonNull ILoadProducts callback);
 
-    void get(@NonNull ProductSearch productSearch, @NonNull LoadProduct callback);
+    void get(@NonNull ProductSearch productSearch, @NonNull ILoadProduct callback);
 
     void create(@NonNull ProductCreate productCreate);
+
+    void create(@NonNull Product product);
 
     void update(@NonNull ProductUpdate productUpdate);
 
@@ -26,14 +29,4 @@ public interface IProductService {
     void delete(@NonNull ProductDelete productDelete);
 
     void deleteAll();
-
-    interface LoadProduct {
-        void load(ProductDto product);
-        void notAvailable();
-    }
-
-    interface LoadProducts {
-        void load(List<ProductDto> products);
-        void notAvailable();
-    }
 }

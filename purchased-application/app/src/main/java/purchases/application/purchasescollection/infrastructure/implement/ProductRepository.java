@@ -2,27 +2,36 @@ package purchases.application.purchasescollection.infrastructure.implement;
 
 import android.support.annotation.NonNull;
 
+import purchases.application.purchasescollection.infrastructure.contract.ILoadProduct;
+import purchases.application.purchasescollection.infrastructure.contract.ILoadProducts;
 import purchases.application.purchasescollection.infrastructure.contract.IProductService;
 import purchases.application.purchasescollection.infrastructure.model.command.ProductSearch;
 import purchases.application.purchasescollection.infrastructure.model.command.ProductTransaction;
 import purchases.application.purchasescollection.infrastructure.model.command.ProductCreate;
 import purchases.application.purchasescollection.infrastructure.model.command.ProductDelete;
 import purchases.application.purchasescollection.infrastructure.model.command.ProductUpdate;
+import purchases.application.purchasescollection.infrastructure.model.entity.Product;
 
 public class ProductRepository implements IProductService {
 
+
     @Override
-    public void getAll(@NonNull LoadProducts callback) {
+    public void getAll(@NonNull ILoadProducts callback) {
 
     }
 
     @Override
-    public void get(@NonNull ProductSearch productSearch, @NonNull LoadProduct callback) {
+    public void get(@NonNull ProductSearch productSearch, @NonNull ILoadProduct callback) {
 
     }
 
     @Override
     public void create(@NonNull ProductCreate productCreate) {
+
+    }
+
+    @Override
+    public void create(@NonNull Product product) {
 
     }
 

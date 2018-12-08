@@ -14,16 +14,13 @@ import android.view.MenuItem;
 import purchases.application.purchasescollection.R;
 import purchases.application.purchasescollection.client.product.implement.presenter.ProductPresenter;
 import purchases.application.purchasescollection.client.product.implement.view.ProductView;
-import purchases.application.purchasescollection.setting.SettingActivity;
-import purchases.application.purchasescollection.utilities.activity.ActivityUtilities;
-import purchases.application.purchasescollection.utilities.inject.Injector;
-import purchases.application.purchasescollection.utilities.preferences.FontSupport;
-import purchases.application.purchasescollection.utilities.preferences.ThemeSupport;
+import purchases.application.purchasescollection.client.setting.SettingActivity;
+import purchases.application.purchasescollection.common.utilities.activity.ActivityUtilities;
+import purchases.application.purchasescollection.common.utilities.inject.Injector;
+import purchases.application.purchasescollection.common.utilities.preferences.FontSupport;
+import purchases.application.purchasescollection.common.utilities.preferences.ThemeSupport;
 
 public class ProductActivity extends AppCompatActivity  {
-
-    private ProductPresenter productPresenter;
-
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -41,9 +38,9 @@ public class ProductActivity extends AppCompatActivity  {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-        ab.setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
@@ -58,7 +55,7 @@ public class ProductActivity extends AppCompatActivity  {
             ActivityUtilities.addFragmentToActivity(getSupportFragmentManager(), productView, R.id.content_frame);
         }
 
-        this.productPresenter = new ProductPresenter(productView, Injector.provideRoomServices(getApplicationContext()));
+         new ProductPresenter(productView, Injector.provideRoomServices(getApplicationContext()));
     }
 
     @Override

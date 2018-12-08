@@ -23,9 +23,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".client.product.activity.AddEditProductActivity" />
+        <activity android:name=".client.product.activity.ProductFormActivity" />
         <activity
-            android:name=".productDetail.ProductDetailActivity"
+            android:name=".client.product.activity.ProductDetailActivity"
             android:launchMode="singleTask"
             android:parentActivityName=".client.product.activity.ProductActivity">
             <intent-filter>
@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".setting.SettingActivity" />
+        <activity android:name=".client.setting.SettingActivity" />
     </application>
 
 </manifest>

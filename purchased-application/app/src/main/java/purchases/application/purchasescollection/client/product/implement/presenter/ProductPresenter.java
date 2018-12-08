@@ -6,6 +6,7 @@ import java.util.List;
 
 import purchases.application.purchasescollection.client.product.contract.presenter.IProductPresenter;
 import purchases.application.purchasescollection.client.product.contract.view.IProductView;
+import purchases.application.purchasescollection.infrastructure.contract.ILoadProducts;
 import purchases.application.purchasescollection.infrastructure.contract.IProductService;
 import purchases.application.purchasescollection.infrastructure.model.command.ProductTransaction;
 import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
@@ -34,7 +35,7 @@ public class ProductPresenter implements IProductPresenter {
     @Override
     public void loadProducts() {
 
-        productService.getAll(new IProductService.LoadProducts() {
+        productService.getAll(new ILoadProducts() {
             @Override
             public void load(List<ProductDto> products) {
                 productView.showProduct(products);

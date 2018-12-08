@@ -1,18 +1,12 @@
 package purchases.application.purchasescollection.client.product.contract.view;
 
-import purchases.application.purchasescollection.client.product.contract.IView;
+import purchases.application.purchasescollection.common.contract.IView;
+import purchases.application.purchasescollection.client.product.contract.presenter.IProductDetailPresenter;
+import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
 
-public interface IProductDetailView extends IView<IProductDetailView> {
+public interface IProductDetailView extends IView<IProductDetailPresenter> {
 
-    void setName(String name);
-
-    void setPrice(double price);
-
-    void setAmount(int amount);
-
-    void setBuy(String status);
-
-    void setOptionBuy(boolean status);
+    void setDetailProduct(ProductDto product);
 
     void showDetailProduct();
 
@@ -22,7 +16,5 @@ public interface IProductDetailView extends IView<IProductDetailView> {
 
     void showEditedProduct(String productId);
 
-    void showTaskDeleted();
-
-    boolean isActive();
+    void showDeletedProduct();
 }
