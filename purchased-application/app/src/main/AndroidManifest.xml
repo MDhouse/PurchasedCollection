@@ -12,15 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App.Mint">
+
+        <activity android:name=".client.account.activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".client.product.activity.ProductActivity"
             android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
             <intent-filter>
                 <action android:name="purchases.application.purchasescollection.PRODUCT_LIST" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -31,6 +37,7 @@
             android:parentActivityName=".client.product.activity.ProductActivity">
             <intent-filter>
                 <action android:name="purchases.application.purchasescollection.PRODUCT_DETAIL" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

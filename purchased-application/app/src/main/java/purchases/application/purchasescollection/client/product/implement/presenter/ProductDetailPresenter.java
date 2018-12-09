@@ -9,9 +9,9 @@ import purchases.application.purchasescollection.client.product.contract.present
 import purchases.application.purchasescollection.client.product.contract.view.IProductDetailView;
 import purchases.application.purchasescollection.infrastructure.contract.ILoadProduct;
 import purchases.application.purchasescollection.infrastructure.contract.IProductService;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductDelete;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductSearch;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductTransaction;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductDelete;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductSearch;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductTransaction;
 import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
 
 public class ProductDetailPresenter implements IProductDetailPresenter {

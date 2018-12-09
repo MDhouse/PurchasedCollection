@@ -7,9 +7,9 @@ import purchases.application.purchasescollection.client.product.contract.present
 import purchases.application.purchasescollection.client.product.contract.view.IProductFormView;
 import purchases.application.purchasescollection.infrastructure.contract.ILoadProduct;
 import purchases.application.purchasescollection.infrastructure.contract.IProductService;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductCreate;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductSearch;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductUpdate;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductCreate;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductSearch;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductUpdate;
 import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
 
 public class ProductFormPresenter implements IProductFormPresenter, ILoadProduct {

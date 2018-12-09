@@ -9,19 +9,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import purchases.application.purchasescollection.common.utilities.executor.ApplicationExecutor;
 import purchases.application.purchasescollection.infrastructure.contract.ILoadProduct;
 import purchases.application.purchasescollection.infrastructure.contract.ILoadProducts;
 import purchases.application.purchasescollection.infrastructure.contract.IProductService;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductCreate;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductDelete;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductSearch;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductTransaction;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductUpdate;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductCreate;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductDelete;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductSearch;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductTransaction;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductUpdate;
 import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
 import purchases.application.purchasescollection.infrastructure.model.firebase.Product;
 
@@ -32,19 +30,15 @@ public class ProductFirebaseService implements IProductService<Product> {
     private static volatile ProductFirebaseService INSTANCE;
 
     private DatabaseReference database;
-    private ApplicationExecutor applicationExecutor;
 
-
-
-    public ProductFirebaseService(@NonNull DatabaseReference database, @NonNull ApplicationExecutor applicationExecutor) {
+    public ProductFirebaseService(@NonNull DatabaseReference database) {
         this.database = database;
-        this.applicationExecutor = applicationExecutor;
     }
 
-    public static ProductFirebaseService getInstance(DatabaseReference database, ApplicationExecutor applicationExecutor) {
+    public static ProductFirebaseService getInstance(DatabaseReference database) {
 
         if(isNull())
-            build(database, applicationExecutor);
+            build(database);
 
         return INSTANCE;
     }
@@ -143,11 +137,11 @@ public class ProductFirebaseService implements IProductService<Product> {
         return INSTANCE == null;
     }
 
-    private static void build(DatabaseReference databaseReference, ApplicationExecutor applicationExecutor) {
+    private static void build(DatabaseReference databaseReference) {
 
         synchronized (ProductFirebaseService.class) {
             if(isNull())
-                INSTANCE = new ProductFirebaseService(databaseReference, applicationExecutor);
+                INSTANCE = new ProductFirebaseService(databaseReference);
         }
     }
 

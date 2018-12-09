@@ -11,8 +11,6 @@ import com.google.common.base.Strings;
 
 import java.util.UUID;
 
-import purchases.application.purchasescollection.infrastructure.model.command.ProductCreate;
-
 @Entity(tableName = "product")
 public final class Product {
 

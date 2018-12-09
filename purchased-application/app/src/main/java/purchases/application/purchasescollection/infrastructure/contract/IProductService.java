@@ -2,15 +2,11 @@ package purchases.application.purchasescollection.infrastructure.contract;
 
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
-import purchases.application.purchasescollection.infrastructure.model.command.ProductSearch;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductTransaction;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductCreate;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductDelete;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductUpdate;
-import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
-import purchases.application.purchasescollection.infrastructure.model.entity.Product;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductSearch;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductTransaction;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductCreate;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductDelete;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductUpdate;
 
 public interface IProductService<T> {
 

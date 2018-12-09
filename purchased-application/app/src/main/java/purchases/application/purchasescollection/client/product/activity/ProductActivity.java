@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import purchases.application.purchasescollection.R;
+import purchases.application.purchasescollection.client.account.activity.LoginActivity;
 import purchases.application.purchasescollection.client.product.implement.presenter.ProductPresenter;
 import purchases.application.purchasescollection.client.product.implement.view.ProductView;
 import purchases.application.purchasescollection.client.setting.SettingActivity;
@@ -51,7 +52,7 @@ public class ProductActivity extends AppCompatActivity  {
         ProductView productView = (ProductView)getSupportFragmentManager().findFragmentById(R.id.content_frame);
 
         if (productView == null) {
-            productView = productView.newInstance();
+            productView = ProductView.newInstance();
             ActivityUtilities.addFragmentToActivity(getSupportFragmentManager(), productView, R.id.content_frame);
         }
 
@@ -88,8 +89,13 @@ public class ProductActivity extends AppCompatActivity  {
                             case R.id.list_navigation_menu_item:
                                 break;
                             case R.id.setting_navigation_menu_item:
-                                Intent intent = new Intent(this, SettingActivity.class);
-                                startActivity(intent);
+                                Intent intentSetting = new Intent(this, SettingActivity.class);
+                                startActivity(intentSetting);
+                                break;
+                            case R.id.log_out_navigation_menu_item:
+                                Intent intentLogOut = new Intent(this, LoginActivity.class);
+                                intentLogOut.putExtra("LOGOUT", true);
+                                startActivity(intentLogOut);
                                 break;
                             default:
                                 break;

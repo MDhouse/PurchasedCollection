@@ -5,11 +5,11 @@ import android.support.annotation.NonNull;
 import purchases.application.purchasescollection.infrastructure.contract.ILoadProduct;
 import purchases.application.purchasescollection.infrastructure.contract.ILoadProducts;
 import purchases.application.purchasescollection.infrastructure.contract.IProductService;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductSearch;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductTransaction;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductCreate;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductDelete;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductUpdate;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductSearch;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductTransaction;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductCreate;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductDelete;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductUpdate;
 import purchases.application.purchasescollection.infrastructure.model.entity.Product;
 
 public class ProductRepository implements IProductService<Product> {

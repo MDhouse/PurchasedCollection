@@ -61,6 +61,12 @@
     <string name="form_product_amount">Amount Product</string>
     <string name="form_product_buy">Product Buy</string>
     <string name="form_product_error">A fill the all fields of forms.</string>
+    <string name="email_address">Email address</string>
+    <string name="password">Password</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="confirm_sing_in">Sing In</string>
+    <string name="confirm_create_account">Create Account</string>
+    <string name="create_account_button_view">Create Account</string>
 
     <string-array name="pref_font_size_entries">
         <item>Small</item>

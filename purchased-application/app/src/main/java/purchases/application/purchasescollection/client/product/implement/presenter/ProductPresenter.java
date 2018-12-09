@@ -8,7 +8,7 @@ import purchases.application.purchasescollection.client.product.contract.present
 import purchases.application.purchasescollection.client.product.contract.view.IProductView;
 import purchases.application.purchasescollection.infrastructure.contract.ILoadProducts;
 import purchases.application.purchasescollection.infrastructure.contract.IProductService;
-import purchases.application.purchasescollection.infrastructure.model.command.ProductTransaction;
+import purchases.application.purchasescollection.infrastructure.model.command.product.ProductTransaction;
 import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
 
 import static com.google.common.base.Preconditions.checkNotNull;

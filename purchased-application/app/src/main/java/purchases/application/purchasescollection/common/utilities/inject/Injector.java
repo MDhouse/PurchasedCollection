@@ -3,9 +3,11 @@ package purchases.application.purchasescollection.common.utilities.inject;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import purchases.application.purchasescollection.infrastructure.implement.firebase.AuthenticationFirebaseService;
 import purchases.application.purchasescollection.infrastructure.implement.firebase.ProductFirebaseService;
 import purchases.application.purchasescollection.infrastructure.implement.room.ProductDatabase;
 import purchases.application.purchasescollection.infrastructure.implement.room.ProductRoomService;
@@ -29,6 +31,14 @@ public class Injector {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference productReference = database.getReference("product");
 
-        return ProductFirebaseService.getInstance(productReference, new ApplicationExecutor());
+        return ProductFirebaseService.getInstance(productReference);
+    }
+
+    public static AuthenticationFirebaseService provideFirabseAuth() {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userReference = database.getReference("user");
+
+        return AuthenticationFirebaseService.getInstance(FirebaseAuth.getInstance(), userReference);
     }
 }

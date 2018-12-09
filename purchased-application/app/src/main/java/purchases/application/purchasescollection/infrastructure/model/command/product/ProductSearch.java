@@ -1,4 +1,4 @@
-package purchases.application.purchasescollection.infrastructure.model.command;
+package purchases.application.purchasescollection.infrastructure.model.command.product;
 
 public class ProductSearch {
 
