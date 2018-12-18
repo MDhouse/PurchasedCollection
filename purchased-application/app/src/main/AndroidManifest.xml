@@ -3,6 +3,7 @@
     package="purchases.application.purchasescollection">
 
     <uses-permission android:name="application.purchases.purchasedbroadcast.HANDLE_INTENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,29 +12,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App.Mint">
-        <activity
-            android:name=".products.ProductsActivity"
-            android:launchMode="singleTask">
+
+        <activity android:name=".client.account.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".client.product.activity.ProductActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="purchases.application.purchasescollection.PRODUCT_LIST" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".addEditProduct.AddEditProductActivity" />
+        <activity android:name=".client.product.activity.ProductFormActivity" />
         <activity
-            android:name=".productDetail.ProductDetailActivity"
+            android:name=".client.product.activity.ProductDetailActivity"
             android:launchMode="singleTask"
-            android:parentActivityName=".products.ProductsActivity">
+            android:parentActivityName=".client.product.activity.ProductActivity">
             <intent-filter>
                 <action android:name="purchases.application.purchasescollection.PRODUCT_DETAIL" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".setting.SettingActivity" />
+        <activity android:name=".client.setting.SettingActivity" />
     </application>
 
 </manifest>
