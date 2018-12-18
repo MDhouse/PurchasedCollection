@@ -15,7 +15,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".addEditProduct.AddEditProductActivity">
+        tools:context=".client.product.activity.ProductFormActivity">
 
         <include layout="@layout/include_frame_content"></include>
 
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
             android:theme="?attr/buttonNormalColor"
-            android:src="@drawable/ic_action_add"
+            android:src="@drawable/ic_done"
             android:tint="?attr/buttonTextColor"
             app:fabSize="normal"
             app:layout_anchor="@id/content_frame"
