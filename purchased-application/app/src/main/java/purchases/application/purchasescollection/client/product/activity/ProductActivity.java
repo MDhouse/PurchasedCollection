@@ -3,6 +3,7 @@ package purchases.application.purchasescollection.client.product.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,21 +11,39 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.google.common.base.MoreObjects;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import purchases.application.purchasescollection.R;
 import purchases.application.purchasescollection.client.account.activity.LoginActivity;
+import purchases.application.purchasescollection.client.product.contract.presenter.IProductPresenter;
 import purchases.application.purchasescollection.client.product.implement.presenter.ProductPresenter;
 import purchases.application.purchasescollection.client.product.implement.view.ProductView;
 import purchases.application.purchasescollection.client.setting.SettingActivity;
+import purchases.application.purchasescollection.common.contract.IFloatActionListener;
 import purchases.application.purchasescollection.common.utilities.activity.ActivityUtilities;
 import purchases.application.purchasescollection.common.utilities.inject.Injector;
 import purchases.application.purchasescollection.common.utilities.preferences.FontSupport;
 import purchases.application.purchasescollection.common.utilities.preferences.ThemeSupport;
 
-public class ProductActivity extends AppCompatActivity  {
+public class ProductActivity extends AppCompatActivity implements IFloatActionListener {
 
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
+    private IProductPresenter productPresenter;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+
+    @BindView(R.id.drawer_navigation)
+    NavigationView navigationView;
 
     public ProductActivity() { }
 
@@ -36,16 +55,14 @@ public class ProductActivity extends AppCompatActivity  {
         getTheme().applyStyle(new FontSupport(this).getFontStyle().getResId(), true);
 
         setContentView(R.layout.activity_products);
+        ButterKnife.bind(this);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        setUserNameTextView(getIntent().getStringExtra("USER_NAME"));
         setSupportActionBar(toolbar);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-
-        this.navigationView = findViewById(R.id.drawer_navigation);
 
         setDrawerContent();
 
@@ -56,11 +73,12 @@ public class ProductActivity extends AppCompatActivity  {
             ActivityUtilities.addFragmentToActivity(getSupportFragmentManager(), productView, R.id.content_frame);
         }
 
-         new ProductPresenter(productView, Injector.provideFirebaseService());
+        productPresenter = new ProductPresenter(productView, Injector.provideFirebaseService(), Injector.provideFirabseAuth());
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
@@ -78,6 +96,13 @@ public class ProductActivity extends AppCompatActivity  {
     public void onRestart() {
         recreate();
         super.onRestart();
+    }
+
+    @OnClick(R.id.fab_add_product)
+    @Override
+    public void runAction() {
+
+        productPresenter.createProduct();
     }
 
     private void setDrawerContent() {
@@ -104,5 +129,13 @@ public class ProductActivity extends AppCompatActivity  {
                         return true;
                     });
         }
+    }
+
+    private void setUserNameTextView(String userName){
+
+        final View header = navigationView.getHeaderView(0);
+
+        final TextView userTextView = header.findViewById(R.id.user_name);
+        userTextView.setText(MoreObjects.firstNonNull(userName, ""));
     }
 }

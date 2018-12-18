@@ -44,6 +44,37 @@ public class ProductFirebaseService implements IProductService<Product> {
     }
 
     @Override
+    public void getAll(@NonNull String uuid, @NonNull ILoadProducts callback) {
+
+        database
+                .orderByChild("uuid")
+                .equalTo(uuid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        final List<ProductDto> products = new ArrayList<>();
+
+                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                            ProductDto product = map(ds.getValue(Product.class));
+                            products.add(product);
+                        }
+
+                        if (products.isEmpty()) {
+                            callback.notAvailable();
+                        } else {
+                            callback.load(products);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "Failed to read value.", databaseError.toException());
+                    }
+        });
+    }
+
+    @Override
     public void getAll(@NonNull ILoadProducts callback) {
 
         database.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -70,7 +101,6 @@ public class ProductFirebaseService implements IProductService<Product> {
             }
         });
     }
-
     @Override
     public void get(@NonNull ProductSearch productSearch, @NonNull ILoadProduct callback) {
 

@@ -1,137 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragment_login"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/title_form"
+        android:id="@+id/title_account_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="30dp"
         android:textAlignment="center"
         android:textSize="?attr/font_large" />
 
-    <LinearLayout
-        android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/login_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="@string/email_address"
-            android:inputType="textEmailAddress|textPersonName"
-            android:textSize="?attr/font_medium" />
+    <include layout="@layout/include_sing_up_form"></include>
 
-        <EditText
-            android:id="@+id/login_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:gravity="left|start"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textSize="?attr/font_medium" />
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/button_login_form"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center">
-
-            <Button
-                android:id="@+id/confirm_form_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?colorAccent"
-                android:text="@string/confirm_sing_in"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="17dp"
-                tools:layout_editor_absoluteY="28dp" />
-
-            <Button
-                android:id="@+id/create_account_form_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="@string/create_account_button_view"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="144dp" />
+    <include layout="@layout/include_login_form"></include>
 
 
-        </android.support.constraint.ConstraintLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/create_account_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/account_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="@string/email_address"
-            android:inputType="textEmailAddress|textPersonName"
-            android:textSize="?attr/font_medium" />
-
-        <EditText
-            android:id="@+id/account_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:gravity="left|start"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textSize="?attr/font_medium" />
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/button_create_form"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal">
-
-            <Button
-                android:id="@+id/cancel_form"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?colorAccent"
-                android:text="@string/cancel_button"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="98dp"
-                tools:ignore="MissingConstraints" />
-
-            <Button
-                android:id="@+id/confirm_form_create"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?colorAccent"
-                android:text="@string/confirm_create_account"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="36dp"
-                tools:ignore="MissingConstraints" />
-
-
-        </android.support.constraint.ConstraintLayout>
-
-    </LinearLayout>
-
-
-</RelativeLayout>
+</LinearLayout>

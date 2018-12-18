@@ -6,7 +6,8 @@ public interface ILoginView extends IView<ILoginPresenter> {
 
     void showLoginForm();
     void showCreateForm();
-    void showProduct();
+
+    void showProductActivity(String userName);
 
     void showErrorToast(String message);
 }

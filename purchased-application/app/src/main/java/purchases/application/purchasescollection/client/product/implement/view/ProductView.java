@@ -2,6 +2,7 @@ package purchases.application.purchasescollection.client.product.implement.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -10,10 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Optional;
+import butterknife.Unbinder;
 import purchases.application.purchasescollection.R;
 import purchases.application.purchasescollection.client.product.activity.ProductDetailActivity;
 import purchases.application.purchasescollection.client.product.activity.ProductFormActivity;
@@ -26,15 +32,24 @@ import purchases.application.purchasescollection.infrastructure.model.dto.Produc
 
 public class ProductView extends Fragment implements IProductView {
 
+    @NonNull
     private IProductPresenter productPresenter;
     private IListListener<ProductDto> productListListener;
 
     private ProductAdapter productAdapter;
+    private Unbinder unbinder;
 
-    private LinearLayout productNotAvailable;
+    @BindView(R.id.products)
+    LinearLayout productPresent;
 
-    private LinearLayout productPresent;
+    @BindView(R.id.no_products)
+    LinearLayout productNotAvailable;
 
+    @BindView(R.id.products_list)
+    ListView productList;
+
+    @BindView(R.id.refresh_layout)
+    SwipeChildRefreshLayout swipeChildRefreshLayout;
 
     public ProductView() {
     }
@@ -42,10 +57,15 @@ public class ProductView extends Fragment implements IProductView {
     public static ProductView newInstance() {return new ProductView();}
 
     @Override
+    public void onResume() {
+        super.onResume();
+        productPresenter.start();
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setHasOptionsMenu(true);
         loadAdapter();
     }
 
@@ -55,29 +75,18 @@ public class ProductView extends Fragment implements IProductView {
 
         final View root = inflater.inflate(R.layout.fragment_product, container, false);
 
-        final ListView productList = root.findViewById(R.id.products_list);
-        productList.setAdapter(productAdapter);
+        unbinder = ButterKnife.bind(this, root);
 
-        final SwipeChildRefreshLayout swipeChildRefreshLayout = root.findViewById(R.id.refresh_layout);
-        swipeChildRefreshLayout.setScrollUpChild(productList);
-        swipeChildRefreshLayout.setOnRefreshListener(() -> productPresenter.loadProducts());
-
-        final FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab_add_product);
-        floatingActionButton.setImageResource(R.drawable.ic_action_add);
-        floatingActionButton.setOnClickListener(v -> productPresenter.createProduct());
-
-        productPresent = root.findViewById(R.id.products);
-        productNotAvailable = root.findViewById(R.id.no_products);
-
+        getProductList();
         setHasOptionsMenu(true);
 
         return root;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        productPresenter.start();
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override
@@ -85,8 +94,8 @@ public class ProductView extends Fragment implements IProductView {
 
         productAdapter.replaceData(products);
 
-        productNotAvailable.setVisibility(View.GONE);
-        productPresent.setVisibility(View.VISIBLE);
+        setVisibilityNotAvailable(View.GONE);
+        setVisibilityProduct(View.VISIBLE);
     }
 
     @Override
@@ -94,22 +103,22 @@ public class ProductView extends Fragment implements IProductView {
 
         productAdapter.resetData();
 
-        productPresent.setVisibility(View.GONE);
-        productNotAvailable.setVisibility(View.VISIBLE);
+        setVisibilityProduct(View.GONE);
+        setVisibilityNotAvailable(View.VISIBLE);
     }
 
     @Override
     public void showFormProduct() {
 
         Intent intent = new Intent(getContext(), ProductFormActivity.class);
-        startActivityForResult(intent, ProductFormActivity.REQUEST_ADD_TASK);
+        startActivityForResult(intent, 1);
     }
 
     @Override
     public void showDetailProduct(String productId) {
 
         Intent intent = new Intent(getContext(), ProductDetailActivity.class);
-        intent.putExtra(ProductDetailActivity.PRODUCT_ID, productId);
+        intent.putExtra("PRODUCT_ID", productId);
         startActivity(intent);
     }
 
@@ -121,6 +130,14 @@ public class ProductView extends Fragment implements IProductView {
     @Override
     public void setPresenter(IProductPresenter presenter) {
         this.productPresenter = presenter;
+    }
+
+    private void getProductList() {
+
+        productList.setAdapter(productAdapter);
+
+        swipeChildRefreshLayout.setScrollUpChild(productList);
+        swipeChildRefreshLayout.setOnRefreshListener(() -> productPresenter.loadProducts());
     }
 
     private void loadAdapter() {
@@ -147,5 +164,17 @@ public class ProductView extends Fragment implements IProductView {
         if(this.productAdapter == null) {
             productAdapter = new ProductAdapter(new ArrayList<>(0), productListListener);
         }
+    }
+
+    private void setVisibilityProduct(int visible) {
+
+        if(productPresent != null)
+            productPresent.setVisibility(visible);
+    }
+
+    private void setVisibilityNotAvailable(int visible) {
+
+        if(productNotAvailable != null)
+            productNotAvailable.setVisibility(visible);
     }
 }

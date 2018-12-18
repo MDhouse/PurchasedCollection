@@ -1,13 +1,17 @@
 package purchases.application.purchasescollection.infrastructure.model.command.product;
 
+import android.support.annotation.Nullable;
+
 public class UserAction {
 
     private String email;
-    private  String password;
+    private String password;
+    private String userName;
 
-    public UserAction(String email, String password) {
+    public UserAction(String email, String password, @Nullable String userName) {
         this.email = email;
         this.password = password;
+        this.userName = userName;
     }
 
     public String getEmail() {
@@ -16,5 +20,9 @@ public class UserAction {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }

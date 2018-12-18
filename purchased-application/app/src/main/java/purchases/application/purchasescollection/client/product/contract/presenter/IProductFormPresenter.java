@@ -8,6 +8,8 @@ public interface IProductFormPresenter extends IPresenter {
 
     void populateProduct();
 
+    void verifyForm();
+
     boolean isNewProduct();
 
     boolean isVerify(String name, double price, int amount, boolean buy);

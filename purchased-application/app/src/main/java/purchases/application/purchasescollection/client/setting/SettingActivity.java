@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import purchases.application.purchasescollection.R;
 import purchases.application.purchasescollection.common.utilities.activity.ActivityUtilities;
 import purchases.application.purchasescollection.common.utilities.preferences.FontSupport;
@@ -14,7 +16,8 @@ import purchases.application.purchasescollection.common.utilities.preferences.Th
 
 public class SettingActivity extends AppCompatActivity {
 
-    private ActionBar actionBar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,15 +27,13 @@ public class SettingActivity extends AppCompatActivity {
         getTheme().applyStyle(new FontSupport(this).getFontStyle().getResId(), true);
 
         setContentView(R.layout.activity_setting);
+        ButterKnife.bind(this);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final ActionBar actionBar = getSupportActionBar();
 
-        this.actionBar = getSupportActionBar();
-
-        this.actionBar.setDisplayHomeAsUpEnabled(true);
-
-        this.setTitle();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(R.string.activity_setting_title);
 
         SettingFragment settingFragment = (SettingFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
 
@@ -44,20 +45,15 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
+
         if (id == android.R.id.home) {
             onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void setTitle() {
-
-        actionBar.setTitle(R.string.activity_setting_title);
     }
 }

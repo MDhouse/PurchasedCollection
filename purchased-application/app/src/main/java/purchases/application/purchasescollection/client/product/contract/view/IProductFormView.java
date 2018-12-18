@@ -14,6 +14,8 @@ public interface IProductFormView extends IView<IProductFormPresenter> {
 
     void hideSwitch();
 
+    void formValidate();
+
     void setProduct(ProductDto product);
 
     void toIntent(String idProduct, String contentProduct);

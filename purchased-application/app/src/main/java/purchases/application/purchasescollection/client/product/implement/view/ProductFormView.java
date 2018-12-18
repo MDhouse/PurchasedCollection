@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import purchases.application.purchasescollection.R;
 import purchases.application.purchasescollection.client.product.contract.presenter.IProductFormPresenter;
 import purchases.application.purchasescollection.client.product.contract.view.IProductFormView;
@@ -23,13 +26,23 @@ import purchases.application.purchasescollection.common.utilities.preferences.Th
 
 public class ProductFormView extends Fragment implements IProductFormView {
 
-    public static final String ARGUMENT_EDIT_PRODUCT_ID = "EDIT_PRODUCT_ID";
-
     private IProductFormPresenter productFormPresenter;
+    private Unbinder unbinder;
 
-    private TextView formEmpty;
-    private EditText nameEdit, priceEdit, amountEdit;
-    private Switch buySwitch;
+    @BindView(R.id.product_form_empty)
+    TextView formEmpty;
+
+    @BindView(R.id.product_name)
+    EditText nameEdit;
+
+    @BindView(R.id.product_price)
+    EditText priceEdit;
+
+    @BindView(R.id.product_amount)
+    EditText amountEdit;
+
+    @BindView(R.id.product_buy)
+    Switch buySwitch;
 
     public ProductFormView() {
     }
@@ -49,10 +62,6 @@ public class ProductFormView extends Fragment implements IProductFormView {
 
         getActivity().setTheme( new ThemeSupport( getActivity()).getThemeApplication());
         getActivity().getTheme().applyStyle(new FontSupport( getActivity()).getFontStyle().getResId(), true);
-
-        final FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab_product_edit_done);
-        floatingActionButton.setImageResource(R.drawable.ic_done);
-        floatingActionButton.setOnClickListener(v -> formValidate());
     }
 
     @Nullable
@@ -61,16 +70,18 @@ public class ProductFormView extends Fragment implements IProductFormView {
 
         final View root = inflater.inflate(R.layout.fragment_add_edit_product, container, false);
 
-        formEmpty = root.findViewById(R.id.product_form_empty);
-
-        nameEdit = root.findViewById(R.id.product_name);
-        priceEdit = root.findViewById(R.id.product_price);
-        amountEdit = root.findViewById(R.id.product_amount);
-        buySwitch = root.findViewById(R.id.product_buy);
+        unbinder = ButterKnife.bind(this, root);
 
         errorDisplay(false);
         setHasOptionsMenu(true);
+
         return root;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override
@@ -88,12 +99,25 @@ public class ProductFormView extends Fragment implements IProductFormView {
 
     @Override
     public void showSwitch() {
-        buySwitch.setVisibility(View.VISIBLE);
+
+        setVisibilityBuySwitch(View.VISIBLE);
     }
 
     @Override
     public void hideSwitch() {
-        buySwitch.setVisibility(View.GONE);
+
+        setVisibilityBuySwitch(View.GONE);
+    }
+
+    @Override
+    public void formValidate() {
+
+        if(validNewProduct() || this.validEditProduct()){
+            productFormPresenter.saveProduct(getNameEdit(), getPriceEdit(), getAmountEdit(), getBuySwitch());
+            return;
+        }
+
+        errorDisplay(true);
     }
 
     @Override
@@ -107,6 +131,7 @@ public class ProductFormView extends Fragment implements IProductFormView {
 
     @Override
     public void toIntent(String idProduct, String contentProduct) {
+
         Intent toSend = new Intent();
 
         toSend.setAction("purchases.application.purchasescollection.CREATED_PRODUCT");
@@ -131,16 +156,6 @@ public class ProductFormView extends Fragment implements IProductFormView {
         formEmpty.setVisibility(visibility ? View.VISIBLE : View.GONE);
     }
 
-    private void formValidate() {
-
-        if(validNewProduct() || this.validEditProduct()){
-            productFormPresenter.saveProduct(getNameEdit(), getPriceEdit(), getAmountEdit(), getBuySwitch());
-            return;
-        }
-
-        errorDisplay(true);
-    }
-
     private boolean validNewProduct(){
 
         return  productFormPresenter.isNewProduct() && this.checkFields();
@@ -159,6 +174,12 @@ public class ProductFormView extends Fragment implements IProductFormView {
     private boolean valid(@NonNull EditText editText) {
 
         return editText.getText().toString().trim().length() > 0;
+    }
+
+    private void setVisibilityBuySwitch(int visible){
+
+        if(buySwitch != null)
+            buySwitch.setVisibility(visible);
     }
 
     public String getNameEdit() {

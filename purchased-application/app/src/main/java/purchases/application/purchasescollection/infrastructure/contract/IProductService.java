@@ -10,6 +10,8 @@ import purchases.application.purchasescollection.infrastructure.model.command.pr
 
 public interface IProductService<T> {
 
+    void getAll(@NonNull String uuid, @NonNull ILoadProducts callback);
+
     void getAll(@NonNull ILoadProducts callback);
 
     void get(@NonNull ProductSearch productSearch, @NonNull ILoadProduct callback);

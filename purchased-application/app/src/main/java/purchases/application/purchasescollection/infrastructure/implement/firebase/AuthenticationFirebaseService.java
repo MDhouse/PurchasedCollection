@@ -4,7 +4,10 @@ import android.support.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import purchases.application.purchasescollection.infrastructure.contract.IAuthenticationService;
 import purchases.application.purchasescollection.infrastructure.contract.ILoadUser;
@@ -46,17 +49,62 @@ public class AuthenticationFirebaseService implements IAuthenticationService {
     @Override
     public void createAccount(UserAction user,  @NonNull ILoadUser callback) {
 
-        firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
-                .addOnCompleteListener(task -> {
+        AtomicBoolean doExecute = new AtomicBoolean(false);
 
-                    if(task.isSuccessful()) {
-                        UserDto newUser = UserDto.map(firebaseAuth.getCurrentUser());
-                        save(newUser);
-                        callback.load(newUser);
-                    } else {
-                        callback.notAvailable();
-                    }
-                });
+        firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
+                .addOnSuccessListener( task -> {
+
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(user.getUserName())
+                            .build();
+
+                    firebaseAuth.getCurrentUser().updateProfile(profileUpdates)
+                            .addOnCompleteListener(doUpdate -> {
+
+                                if(doUpdate.isSuccessful()) {
+                                    UserDto newUser = UserDto.map(firebaseAuth.getCurrentUser());
+                                    save(newUser);
+                                    callback.load(newUser);
+                                } else {
+                                    callback.notAvailable();
+                                }
+                            });
+                        }
+                ).addOnFailureListener(errors ->
+                    callback.notAvailable()
+                );
+
+
+
+//                .addOnCompleteListener(task -> {
+//
+//                    if(task.isSuccessful())
+//                        doExecute.set(true);
+//                    else
+//                        doExecute.set(false);
+//                });
+
+//        if(doExecute.get()){
+//
+////            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+////                    .setDisplayName(user.getUserName())
+////                    .build();
+////
+////            firebaseAuth.getCurrentUser().updateProfile(profileUpdates)
+////                    .addOnCompleteListener(task -> {
+////
+////                        if(task.isSuccessful()) {
+////                            UserDto newUser = UserDto.map(firebaseAuth.getCurrentUser());
+////                            save(newUser);
+////                            callback.load(newUser);
+////                        } else {
+////                            callback.notAvailable();
+////                        }
+////                    });
+//        } else {
+//            callback.notAvailable();
+//        }
+
     }
 
     @Override
@@ -99,6 +147,7 @@ public class AuthenticationFirebaseService implements IAuthenticationService {
     }
 
     private void save(UserDto userDto) {
+
 
         User user = new User(userDto.getName(), userDto.getEmail());
         database.child(userDto.getId()).setValue(user);

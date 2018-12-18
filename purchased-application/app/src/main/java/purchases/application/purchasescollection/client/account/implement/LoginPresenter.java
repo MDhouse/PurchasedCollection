@@ -38,7 +38,7 @@ public class LoginPresenter implements ILoginPresenter {
         authenticationService.getCurrentUser(new ILoadUser() {
             @Override
             public void load(UserDto user) {
-                loginView.showProduct();
+                loginView.showProductActivity(user.getName());
             }
 
             @Override
@@ -54,7 +54,7 @@ public class LoginPresenter implements ILoginPresenter {
         authenticationService.signIn(user, new ILoadUser() {
             @Override
             public void load(UserDto user) {
-                loginView.showProduct();
+                loginView.showProductActivity(user.getName());
             }
 
             @Override
@@ -70,7 +70,7 @@ public class LoginPresenter implements ILoginPresenter {
         authenticationService.createAccount(user, new ILoadUser() {
             @Override
             public void load(UserDto user) {
-                loginView.showProduct();
+                loginView.showProductActivity(user.getName());
             }
 
             @Override

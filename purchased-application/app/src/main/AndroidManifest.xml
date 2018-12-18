@@ -23,7 +23,6 @@
         <activity
             android:name=".client.product.activity.ProductActivity"
             android:launchMode="singleTask">
-
             <intent-filter>
                 <action android:name="purchases.application.purchasescollection.PRODUCT_LIST" />
 

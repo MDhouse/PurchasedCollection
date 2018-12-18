@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Purchases Collection</string>
+    <string name="app_name">Purchases</string>
 
     <string name="product_edit">Edit Product</string>
-    <string name="product_create">Add New Product</string>
+    <string name="product_create">Add Product</string>
 
     <string name="empty_product_message">Product cannot be empty</string>
     <string name="product_not_buy">Do not have a products to buy</string>
@@ -61,12 +61,7 @@
     <string name="form_product_amount">Amount Product</string>
     <string name="form_product_buy">Product Buy</string>
     <string name="form_product_error">A fill the all fields of forms.</string>
-    <string name="email_address">Email address</string>
-    <string name="password">Password</string>
-    <string name="cancel_button">Cancel</string>
-    <string name="confirm_sing_in">Sing In</string>
-    <string name="confirm_create_account">Create Account</string>
-    <string name="create_account_button_view">Create Account</string>
+
 
     <string-array name="pref_font_size_entries">
         <item>Small</item>
@@ -79,4 +74,18 @@
         <item>Medium</item>
         <item>Large</item>
     </string-array>
+
+    <!--Account activiti-->
+    <string name="email_address">Email address</string>
+    <string name="password">Password</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="confirm_sing_in">Sing In</string>
+    <string name="confirm_create_account">Create Account</string>
+    <string name="create_account_button_view">Create Account</string>
+    <string name="account_create_link_test">No account yet? Create one</string>
+    <string name="login_account_text">Already a member? Login</string>
+    <string name="login_button_text">Login</string>
+    <string name="name">Name</string>
+    <string name="create_button_text">Create</string>
+    <string name="drawer_nav_content">Drawer navigation content</string>
 </resources>

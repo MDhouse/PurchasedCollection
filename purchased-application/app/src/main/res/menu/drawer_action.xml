@@ -12,7 +12,7 @@
         android:title="@string/setting_menu_drawer"/>
 
     <item android:id="@+id/log_out_navigation_menu_item"
-        android:icon="@drawable/ic_reply_all"
+        android:icon="@drawable/log_out"
         android:iconTint="?attr/buttonTextColor"
         android:title="@string/setting_menu_drawer"/>
 </menu>

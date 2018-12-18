@@ -16,6 +16,11 @@ public class ProductRepository implements IProductService<Product> {
 
 
     @Override
+    public void getAll(@NonNull String uuid, @NonNull ILoadProducts callback) {
+
+    }
+
+    @Override
     public void getAll(@NonNull ILoadProducts callback) {
 
     }

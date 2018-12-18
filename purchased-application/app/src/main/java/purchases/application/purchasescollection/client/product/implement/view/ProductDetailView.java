@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import purchases.application.purchasescollection.R;
 import purchases.application.purchasescollection.client.product.activity.ProductFormActivity;
 import purchases.application.purchasescollection.client.product.contract.presenter.IProductDetailPresenter;
@@ -27,26 +30,41 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ProductDetailView extends Fragment implements IProductDetailView {
 
-    @NonNull
-    private static final String ARGUMENT_PRODUCT_ID = "PRODUCT_ID";
-    @NonNull
-    private static final int REQUEST_EDIT_PRODUCT = 1;
-
-    @NonNull
     private IProductDetailPresenter productDetailPresenter;
 
-    private LinearLayout detailLoad, detailNotData, detailData;
-    private TextView productName, productPrice, productAmount, productIsBuy;
+    private Unbinder unbinder;
+
     private MenuItem optionForProduct;
 
     private boolean statusPurchases;
+
+    @BindView(R.id.execute_action)
+    LinearLayout detailLoad;
+
+    @BindView(R.id.product_detail_no_date)
+    LinearLayout detailNotData;
+
+    @BindView(R.id.product_detail_data)
+    LinearLayout detailData;
+
+    @BindView(R.id.product_detail_name)
+    TextView productName;
+
+    @BindView(R.id.product_detail_price)
+    TextView productPrice;
+
+    @BindView(R.id.product_detail_amount)
+    TextView productAmount;
+
+    @BindView(R.id.product_detail_status)
+    TextView productIsBuy;
 
     public ProductDetailView() {
     }
 
     public static ProductDetailView newInstance(String productId){
         Bundle arguments = new Bundle();
-        arguments.putString(ARGUMENT_PRODUCT_ID, productId);
+        arguments.putString("PRODUCT_ID", productId);
         ProductDetailView productDetailView = new ProductDetailView();
         productDetailView.setArguments(arguments);
         return productDetailView;
@@ -70,19 +88,10 @@ public class ProductDetailView extends Fragment implements IProductDetailView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         final View root = inflater.inflate(R.layout.fragment_product_detail, container, false);
 
-        final FloatingActionButton fab = getActivity().findViewById(R.id.fab_edit_product);
-        fab.setOnClickListener(v -> productDetailPresenter.editProduct());
-
-        detailLoad = root.findViewById(R.id.execute_action);
-        detailData = root.findViewById(R.id.product_detail_data);
-        detailNotData = root.findViewById(R.id.product_detail_no_date);
-
-        productName = root.findViewById(R.id.product_detail_name);
-        productPrice = root.findViewById(R.id.product_detail_price);
-        productAmount = root.findViewById(R.id.product_detail_amount);
-        productIsBuy = root.findViewById(R.id.product_detail_status);
+        unbinder = ButterKnife.bind(this, root);
 
         setHasOptionsMenu(true);
 
@@ -121,6 +130,12 @@ public class ProductDetailView extends Fragment implements IProductDetailView {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @Override
     public void setDetailProduct(ProductDto product) {
 
         productName.setText(product.getName());
@@ -134,32 +149,36 @@ public class ProductDetailView extends Fragment implements IProductDetailView {
     @Override
     public void showDetailProduct() {
 
-        this.detailLoad.setVisibility(View.GONE);
-        this.detailNotData.setVisibility(View.GONE);
-        this.detailData.setVisibility(View.VISIBLE);
+        setVisibilityDetailLoad(View.GONE);
+        setVisibilityDetailNotData(View.GONE);
+
+        setVisibilityDetailData(View.VISIBLE);
     }
 
     @Override
     public void showMissingProduct() {
 
-        this.detailLoad.setVisibility(View.GONE);
-        this.detailData.setVisibility(View.GONE);
-        this.detailNotData.setVisibility(View.VISIBLE);
+        setVisibilityDetailLoad(View.GONE);
+        setVisibilityDetailData(View.GONE);
+
+        setVisibilityDetailNotData(View.VISIBLE);
     }
 
     @Override
     public void showLoadProduct() {
 
-        this.detailNotData.setVisibility(View.GONE);
-        this.detailData.setVisibility(View.GONE);
-        this.detailLoad.setVisibility(View.VISIBLE);
+        setVisibilityDetailNotData(View.GONE);
+        setVisibilityDetailData(View.GONE);
+
+        setVisibilityDetailLoad(View.VISIBLE);
     }
 
     @Override
     public void showEditedProduct(String productId) {
+
         Intent intent = new Intent(getContext(), ProductFormActivity.class);
-        intent.putExtra(ProductFormView.ARGUMENT_EDIT_PRODUCT_ID, productId);
-        startActivityForResult(intent, REQUEST_EDIT_PRODUCT);
+        intent.putExtra("EDIT_PRODUCT_ID", productId);
+        startActivityForResult(intent, 1);
     }
 
     @Override
@@ -178,6 +197,7 @@ public class ProductDetailView extends Fragment implements IProductDetailView {
     }
 
     private void setStatusPurchases(boolean statusPurchases) {
+
         this.statusPurchases = !statusPurchases;
         setEnableMenu();
     }
@@ -188,5 +208,23 @@ public class ProductDetailView extends Fragment implements IProductDetailView {
             optionForProduct
                     .setEnabled(statusPurchases)
                     .setVisible(statusPurchases);
+    }
+
+    public void setVisibilityDetailLoad(int visible) {
+
+        if(detailLoad != null)
+            detailLoad.setVisibility(visible);
+    }
+
+    public void setVisibilityDetailNotData(int visible) {
+
+        if(detailNotData != null)
+            detailNotData.setVisibility(visible);
+    }
+
+    public void setVisibilityDetailData(int visible) {
+
+        if(detailData != null)
+            detailData.setVisibility(visible);
     }
 }
