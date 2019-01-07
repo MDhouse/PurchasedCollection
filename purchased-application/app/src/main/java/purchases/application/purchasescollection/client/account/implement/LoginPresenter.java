@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import purchases.application.purchasescollection.client.account.contract.ILoginPresenter;
 import purchases.application.purchasescollection.client.account.contract.ILoginView;
 import purchases.application.purchasescollection.infrastructure.contract.IAuthenticationService;
-import purchases.application.purchasescollection.infrastructure.contract.ILoadUser;
-import purchases.application.purchasescollection.infrastructure.model.command.product.UserAction;
+import purchases.application.purchasescollection.infrastructure.contract.callback.ILoadUser;
+import purchases.application.purchasescollection.infrastructure.model.command.user.UserAction;
 import purchases.application.purchasescollection.infrastructure.model.dto.UserDto;
 
 public class LoginPresenter implements ILoginPresenter {

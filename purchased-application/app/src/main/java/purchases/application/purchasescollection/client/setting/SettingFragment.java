@@ -11,7 +11,6 @@ import purchases.application.purchasescollection.R;
 import purchases.application.purchasescollection.common.utilities.preferences.FontSupport;
 import purchases.application.purchasescollection.common.utilities.preferences.ThemeSupport;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 
 public class SettingFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{

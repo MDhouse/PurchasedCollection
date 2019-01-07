@@ -3,7 +3,6 @@ package purchases.application.purchasescollection.client.product.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.common.base.MoreObjects;
@@ -26,6 +24,7 @@ import purchases.application.purchasescollection.client.product.contract.present
 import purchases.application.purchasescollection.client.product.implement.presenter.ProductPresenter;
 import purchases.application.purchasescollection.client.product.implement.view.ProductView;
 import purchases.application.purchasescollection.client.setting.SettingActivity;
+import purchases.application.purchasescollection.client.store.activity.StoreActivity;
 import purchases.application.purchasescollection.common.contract.IFloatActionListener;
 import purchases.application.purchasescollection.common.utilities.activity.ActivityUtilities;
 import purchases.application.purchasescollection.common.utilities.inject.Injector;
@@ -35,6 +34,7 @@ import purchases.application.purchasescollection.common.utilities.preferences.Th
 public class ProductActivity extends AppCompatActivity implements IFloatActionListener {
 
     private IProductPresenter productPresenter;
+    private String userName;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -73,7 +73,7 @@ public class ProductActivity extends AppCompatActivity implements IFloatActionLi
             ActivityUtilities.addFragmentToActivity(getSupportFragmentManager(), productView, R.id.content_frame);
         }
 
-        productPresenter = new ProductPresenter(productView, Injector.provideFirebaseService(), Injector.provideFirabseAuth());
+        productPresenter = new ProductPresenter(productView, Injector.provideProduct(), Injector.provideAuth());
     }
 
     @Override
@@ -113,6 +113,11 @@ public class ProductActivity extends AppCompatActivity implements IFloatActionLi
                         switch (menuItem.getItemId()) {
                             case R.id.list_navigation_menu_item:
                                 break;
+                            case R.id.store_navigation_menu_item:
+                                Intent intentStore = new Intent(this, StoreActivity.class);
+                                intentStore.putExtra("USER_NAME", userName);
+                                startActivity(intentStore);
+                                break;
                             case R.id.setting_navigation_menu_item:
                                 Intent intentSetting = new Intent(this, SettingActivity.class);
                                 startActivity(intentSetting);
@@ -137,5 +142,6 @@ public class ProductActivity extends AppCompatActivity implements IFloatActionLi
 
         final TextView userTextView = header.findViewById(R.id.user_name);
         userTextView.setText(MoreObjects.firstNonNull(userName, ""));
+        this.userName = MoreObjects.firstNonNull(userName, "");
     }
 }

@@ -10,8 +10,8 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import purchases.application.purchasescollection.infrastructure.contract.IAuthenticationService;
-import purchases.application.purchasescollection.infrastructure.contract.ILoadUser;
-import purchases.application.purchasescollection.infrastructure.model.command.product.UserAction;
+import purchases.application.purchasescollection.infrastructure.contract.callback.ILoadUser;
+import purchases.application.purchasescollection.infrastructure.model.command.user.UserAction;
 import purchases.application.purchasescollection.infrastructure.model.dto.UserDto;
 import purchases.application.purchasescollection.infrastructure.model.firebase.User;
 
@@ -73,38 +73,6 @@ public class AuthenticationFirebaseService implements IAuthenticationService {
                 ).addOnFailureListener(errors ->
                     callback.notAvailable()
                 );
-
-
-
-//                .addOnCompleteListener(task -> {
-//
-//                    if(task.isSuccessful())
-//                        doExecute.set(true);
-//                    else
-//                        doExecute.set(false);
-//                });
-
-//        if(doExecute.get()){
-//
-////            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-////                    .setDisplayName(user.getUserName())
-////                    .build();
-////
-////            firebaseAuth.getCurrentUser().updateProfile(profileUpdates)
-////                    .addOnCompleteListener(task -> {
-////
-////                        if(task.isSuccessful()) {
-////                            UserDto newUser = UserDto.map(firebaseAuth.getCurrentUser());
-////                            save(newUser);
-////                            callback.load(newUser);
-////                        } else {
-////                            callback.notAvailable();
-////                        }
-////                    });
-//        } else {
-//            callback.notAvailable();
-//        }
-
     }
 
     @Override

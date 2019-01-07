@@ -88,4 +88,21 @@
     <string name="name">Name</string>
     <string name="create_button_text">Create</string>
     <string name="drawer_nav_content">Drawer navigation content</string>
+    <string name="log_out">Log Out</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="store_list">Store List</string>
+    <string name="do_not_store">Do not have favorite stores</string>
+    <string name="to_maps">Store on the map</string>
+    <string name="find_store">Go to the map and find your favorite store</string>
+    <string name="store_name">Store Name</string>
+    <string name="store_desc">Store Description</string>
+    <string name="store_radius">Store Radius</string>
+    <string name="dialog_confirm">Confirm</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="edited_radius">Edition radius</string>
+    <string name="your_location">Your location:</string>
+    <string name="go_to_stores">Show all store on maps</string>
 </resources>

@@ -2,7 +2,6 @@ package purchases.application.purchasescollection.client.product.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -66,10 +65,9 @@ public class ProductFormActivity extends AppCompatActivity implements IFloatActi
 
         productFormPresenter = new ProductFormPresenter(
                 productFormView,
-                Injector.provideFirebaseService(),
-                Injector.provideFirabseAuth(),
-                productId,
-                true);
+                Injector.provideProduct(),
+                Injector.provideAuth(),
+                productId);
     }
 
     @Override

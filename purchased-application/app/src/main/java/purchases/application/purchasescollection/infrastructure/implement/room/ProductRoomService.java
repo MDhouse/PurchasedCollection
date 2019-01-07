@@ -6,18 +6,18 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import purchases.application.purchasescollection.infrastructure.contract.ILoadProduct;
-import purchases.application.purchasescollection.infrastructure.contract.ILoadProducts;
+import purchases.application.purchasescollection.common.utilities.executor.ApplicationExecutor;
+import purchases.application.purchasescollection.infrastructure.contract.callback.ILoadProduct;
+import purchases.application.purchasescollection.infrastructure.contract.callback.ILoadProducts;
 import purchases.application.purchasescollection.infrastructure.contract.IProductService;
 import purchases.application.purchasescollection.infrastructure.contract.room.ProductDao;
+import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
+import purchases.application.purchasescollection.infrastructure.model.entity.Product;
 import purchases.application.purchasescollection.infrastructure.model.command.product.ProductCreate;
 import purchases.application.purchasescollection.infrastructure.model.command.product.ProductDelete;
 import purchases.application.purchasescollection.infrastructure.model.command.product.ProductSearch;
 import purchases.application.purchasescollection.infrastructure.model.command.product.ProductTransaction;
 import purchases.application.purchasescollection.infrastructure.model.command.product.ProductUpdate;
-import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
-import purchases.application.purchasescollection.infrastructure.model.entity.Product;
-import purchases.application.purchasescollection.common.utilities.executor.ApplicationExecutor;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
