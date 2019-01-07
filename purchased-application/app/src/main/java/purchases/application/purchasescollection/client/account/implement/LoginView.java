@@ -22,10 +22,10 @@ import purchases.application.purchasescollection.R;
 import purchases.application.purchasescollection.client.account.contract.ILoginPresenter;
 import purchases.application.purchasescollection.client.account.contract.ILoginView;
 import purchases.application.purchasescollection.client.product.activity.ProductActivity;
+import purchases.application.purchasescollection.client.store.activity.StoreActivity;
 import purchases.application.purchasescollection.common.utilities.preferences.FontSupport;
 import purchases.application.purchasescollection.common.utilities.preferences.ThemeSupport;
-import purchases.application.purchasescollection.infrastructure.model.command.product.UserAction;
-import purchases.application.purchasescollection.infrastructure.model.firebase.Product;
+import purchases.application.purchasescollection.infrastructure.model.command.user.UserAction;
 
 public class LoginView extends Fragment implements ILoginView {
 
@@ -117,7 +117,7 @@ public class LoginView extends Fragment implements ILoginView {
     @Override
     public void showProductActivity(String userName) {
 
-        final Intent productIntent = new Intent(getActivity(), ProductActivity.class);
+        final Intent productIntent = new Intent(getActivity(), StoreActivity.class);
         productIntent.putExtra("USER_NAME", userName);
 
         startActivity(productIntent);

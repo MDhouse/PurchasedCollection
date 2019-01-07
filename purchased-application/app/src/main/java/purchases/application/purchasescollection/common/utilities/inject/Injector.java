@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import purchases.application.purchasescollection.infrastructure.implement.firebase.AuthenticationFirebaseService;
 import purchases.application.purchasescollection.infrastructure.implement.firebase.ProductFirebaseService;
+import purchases.application.purchasescollection.infrastructure.implement.firebase.StoreFirebaseService;
 import purchases.application.purchasescollection.infrastructure.implement.room.ProductDatabase;
 import purchases.application.purchasescollection.infrastructure.implement.room.ProductRoomService;
 import purchases.application.purchasescollection.common.utilities.executor.ApplicationExecutor;
@@ -26,7 +27,7 @@ public class Injector {
         return ProductRoomService.getInstance(productDatabase.productDao(), new ApplicationExecutor());
     }
 
-    public static ProductFirebaseService provideFirebaseService() {
+    public static ProductFirebaseService provideProduct() {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference productReference = database.getReference("product");
@@ -34,11 +35,18 @@ public class Injector {
         return ProductFirebaseService.getInstance(productReference);
     }
 
-    public static AuthenticationFirebaseService provideFirabseAuth() {
+    public static AuthenticationFirebaseService provideAuth() {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userReference = database.getReference("user");
 
         return AuthenticationFirebaseService.getInstance(FirebaseAuth.getInstance(), userReference);
+    }
+
+    public static StoreFirebaseService provideStore(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference storeReference = database.getReference("store");
+
+        return StoreFirebaseService.getInstance(storeReference);
     }
 }

@@ -7,7 +7,7 @@ import com.google.common.base.Strings;
 
 import purchases.application.purchasescollection.client.product.contract.presenter.IProductDetailPresenter;
 import purchases.application.purchasescollection.client.product.contract.view.IProductDetailView;
-import purchases.application.purchasescollection.infrastructure.contract.ILoadProduct;
+import purchases.application.purchasescollection.infrastructure.contract.callback.ILoadProduct;
 import purchases.application.purchasescollection.infrastructure.contract.IProductService;
 import purchases.application.purchasescollection.infrastructure.model.command.product.ProductDelete;
 import purchases.application.purchasescollection.infrastructure.model.command.product.ProductSearch;

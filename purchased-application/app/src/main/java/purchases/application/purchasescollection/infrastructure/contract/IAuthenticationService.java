@@ -2,7 +2,8 @@ package purchases.application.purchasescollection.infrastructure.contract;
 
 import android.support.annotation.NonNull;
 
-import purchases.application.purchasescollection.infrastructure.model.command.product.UserAction;
+import purchases.application.purchasescollection.infrastructure.contract.callback.ILoadUser;
+import purchases.application.purchasescollection.infrastructure.model.command.user.UserAction;
 
 public interface IAuthenticationService {
 

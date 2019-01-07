@@ -6,6 +6,11 @@
         android:iconTint="?attr/buttonTextColor"
         android:title="@string/product_list_drawer" />
 
+    <item android:id="@+id/store_navigation_menu_item"
+        android:icon="@drawable/ic_home"
+        android:iconTint="?attr/buttonTextColor"
+        android:title="@string/store_list"/>
+
     <item android:id="@+id/setting_navigation_menu_item"
         android:icon="@drawable/ic_settings"
         android:iconTint="?attr/buttonTextColor"
@@ -14,5 +19,5 @@
     <item android:id="@+id/log_out_navigation_menu_item"
         android:icon="@drawable/log_out"
         android:iconTint="?attr/buttonTextColor"
-        android:title="@string/setting_menu_drawer"/>
+        android:title="@string/log_out"/>
 </menu>

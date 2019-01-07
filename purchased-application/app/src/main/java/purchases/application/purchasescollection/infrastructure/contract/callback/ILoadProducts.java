@@ -1,4 +1,4 @@
-package purchases.application.purchasescollection.infrastructure.contract;
+package purchases.application.purchasescollection.infrastructure.contract.callback;
 
 import java.util.List;
 

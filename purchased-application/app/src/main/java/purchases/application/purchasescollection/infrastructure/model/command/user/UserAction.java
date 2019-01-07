@@ -1,4 +1,4 @@
-package purchases.application.purchasescollection.infrastructure.model.command.product;
+package purchases.application.purchasescollection.infrastructure.model.command.user;
 
 import android.support.annotation.Nullable;
 
