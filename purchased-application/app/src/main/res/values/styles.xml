@@ -24,4 +24,18 @@
         <item name="font_xlarge">32sp</item>
     </style>
 
+    <style name="dividerBase">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+    <style name="dividerHorizontal" parent="dividerBase">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+
+    </style>
+
+    <style name="dividerVertical" parent="dividerBase">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
 </resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/store_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:textSize="?attr/font_medium"
+        android:hint="@string/store_name"
+        android:inputType="textNoSuggestions" />
+
+    <EditText
+        android:id="@+id/store_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/store_name"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:textSize="?attr/font_medium"
+        android:hint="@string/store_desc"
+        android:inputType="textMultiLine"/>
+
+    <EditText
+        android:id="@+id/store_radius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/store_desc"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:textSize="?attr/font_medium"
+        android:hint="@string/store_radius"
+        android:inputType="numberDecimal"
+        android:autofillHints="" />
+
+    <TextView
+        android:id="@+id/store_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/store_radius"
+        android:layout_marginTop="47dp"
+        android:gravity="center_vertical|center"
+        android:textColor="?attr/primaryTextColor"
+        android:textSize="?attr/font_large" />
+
+</RelativeLayout>

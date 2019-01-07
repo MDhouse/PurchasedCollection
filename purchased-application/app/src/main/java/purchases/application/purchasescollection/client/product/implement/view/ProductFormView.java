@@ -138,7 +138,7 @@ public class ProductFormView extends Fragment implements IProductFormView {
         toSend.putExtra("PRODUCT_ID'S", idProduct);
         toSend.putExtra("PRODUCT_CONTENT'S", contentProduct);
 
-        getActivity().sendBroadcast(toSend, "application.purchases.purchasedbroadcast.HANDLE_INTENT");
+        getActivity().sendBroadcast(toSend, "application.purchases.purchasescollection.HANDLE_INTENT");
     }
 
     @Override
@@ -182,19 +182,19 @@ public class ProductFormView extends Fragment implements IProductFormView {
             buySwitch.setVisibility(visible);
     }
 
-    public String getNameEdit() {
+    private String getNameEdit() {
         return nameEdit.getText().toString();
     }
 
-    public double getPriceEdit() {
+    private double getPriceEdit() {
         return Double.valueOf(priceEdit.getText().toString());
     }
 
-    public int getAmountEdit() {
+    private int getAmountEdit() {
         return Integer.valueOf(amountEdit.getText().toString());
     }
 
-    public boolean getBuySwitch() {
+    private boolean getBuySwitch() {
         return buySwitch.isChecked();
     }
 }

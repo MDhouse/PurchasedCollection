@@ -1,4 +1,4 @@
-package purchases.application.purchasescollection.infrastructure.contract;
+package purchases.application.purchasescollection.infrastructure.contract.callback;
 
 import purchases.application.purchasescollection.infrastructure.model.dto.UserDto;
 

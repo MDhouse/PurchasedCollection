@@ -4,30 +4,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Optional;
 import butterknife.Unbinder;
 import purchases.application.purchasescollection.R;
 import purchases.application.purchasescollection.client.product.activity.ProductDetailActivity;
 import purchases.application.purchasescollection.client.product.activity.ProductFormActivity;
-import purchases.application.purchasescollection.common.componenent.SwipeChildRefreshLayout;
-import purchases.application.purchasescollection.common.contract.IListListener;
 import purchases.application.purchasescollection.client.product.contract.presenter.IProductPresenter;
 import purchases.application.purchasescollection.client.product.contract.view.IProductView;
 import purchases.application.purchasescollection.client.product.implement.adapter.ProductAdapter;
+import purchases.application.purchasescollection.common.componenent.SwipeChildRefreshLayout;
+import purchases.application.purchasescollection.common.contract.IListListener;
 import purchases.application.purchasescollection.infrastructure.model.dto.ProductDto;
 
 public class ProductView extends Fragment implements IProductView {

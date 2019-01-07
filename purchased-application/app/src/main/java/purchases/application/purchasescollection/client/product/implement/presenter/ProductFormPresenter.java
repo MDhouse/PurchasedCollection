@@ -6,8 +6,8 @@ import android.support.annotation.Nullable;
 import purchases.application.purchasescollection.client.product.contract.presenter.IProductFormPresenter;
 import purchases.application.purchasescollection.client.product.contract.view.IProductFormView;
 import purchases.application.purchasescollection.infrastructure.contract.IAuthenticationService;
-import purchases.application.purchasescollection.infrastructure.contract.ILoadProduct;
-import purchases.application.purchasescollection.infrastructure.contract.ILoadUser;
+import purchases.application.purchasescollection.infrastructure.contract.callback.ILoadProduct;
+import purchases.application.purchasescollection.infrastructure.contract.callback.ILoadUser;
 import purchases.application.purchasescollection.infrastructure.contract.IProductService;
 import purchases.application.purchasescollection.infrastructure.model.command.product.ProductCreate;
 import purchases.application.purchasescollection.infrastructure.model.command.product.ProductSearch;
@@ -32,12 +32,12 @@ public class ProductFormPresenter implements IProductFormPresenter, ILoadProduct
     private ProductDto product;
     private String uuid;
 
-    public ProductFormPresenter(@NonNull IProductFormView productFormView, @NonNull IProductService productService, @NonNull IAuthenticationService authenticationService, @Nullable String productId, boolean isDataMissing) {
+    public ProductFormPresenter(@NonNull IProductFormView productFormView, @NonNull IProductService productService, @NonNull IAuthenticationService authenticationService, @Nullable String productId) {
         this.productFormView = productFormView;
         this.productService = productService;
         this.authenticationService = authenticationService;
         this.productId = productId;
-        this.isDataMissing = isDataMissing;
+        this.isDataMissing = true;
 
         this.productFormView.setPresenter(this);
     }
@@ -100,11 +100,8 @@ public class ProductFormPresenter implements IProductFormPresenter, ILoadProduct
             return true;
         }
 
-        if(this.product.isBuy() != buy) {
-            return true;
-        }
+        return this.product.isBuy() != buy;
 
-        return false;
     }
 
     @Override
@@ -152,8 +149,8 @@ public class ProductFormPresenter implements IProductFormPresenter, ILoadProduct
         this.product = product;
     }
 
-    private void setDataMissing(boolean dataMissing) {
-        isDataMissing = dataMissing;
+    private void setDataMissing(boolean value) {
+        isDataMissing = value;
     }
 
     private void getUserId(){
